@@ -21,6 +21,7 @@ function LoginMenu({onHandleLogin}) {
       });
       
       const response_data = await response.json();
+      console.log(response_data.tipo);
 
       if (response.ok) {
         console.log(response);
