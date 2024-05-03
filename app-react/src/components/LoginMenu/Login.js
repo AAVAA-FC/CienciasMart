@@ -3,6 +3,7 @@ import Header from '../Header/Header';
 import LoginMenu from './LoginMenu';
 import WelcomeMenu from '../WelcomeMenu/WelcomeMenu';
 import { useAuth } from '../../hooks/useAuth';
+import '../../App.css';
 
 function Login() {
     const { user } = useAuth();
