@@ -1,24 +1,27 @@
 import React, { useEffect } from "react";
 import { useContext, createContext, useState } from "react";
-import Cookies from 'react-cookies';
+import { useCookies } from 'react-cookie';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+    
+    const [cookies, setCookie, removeCookie] = useCookies(['user']);
+
     const [user, setUser] = useState(
         () => {
-            const userData = Cookies.load("user");
+            const userData = cookies.user;
             return userData ? userData : null;
         }
     );
-
+    
     useEffect(() => {
         if(user !== null) {
-            Cookies.save("user", JSON.stringify(user), { path: "/"});
+            setCookie("user", JSON.stringify(user), { path: "/"});
         } else {
-            Cookies.remove("user", { path: "/"});
+            removeCookie("user", { path: "/"});
         }    
-    }, [user]);
+    }, [user, setCookie, removeCookie]);
 
     const login = (userData) => {
         console.log(userData);
