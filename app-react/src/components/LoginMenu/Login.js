@@ -3,27 +3,25 @@ import Header from '../Header/Header';
 import LoginMenu from './LoginMenu';
 import WelcomeMenu from '../WelcomeMenu/WelcomeMenu';
 import { useAuth } from '../../hooks/useAuth';
+import { useNavigate } from 'react-router';
 import '../../App.css';
+import { useEffect } from 'react';
 
 function Login() {
+    const navigate = useNavigate();
     const { user } = useAuth();
-    const { logout } = useAuth();
-    console.log("user: ");
-    console.log(user);
+    
+    useEffect(() => {
+      if(user !== null){
+        navigate('/welcome');
+      }
+    }, [navigate, user]); 
 
     return (
-        <>
-        { user ? (
-                    <div>
-                    <WelcomeMenu />
-                    <button onClick={() => logout()}>Logout</button>
-                    </div>
-            ) : 
           <div className="App">
             <Header />
             <LoginMenu />
           </div>
-        } </>
     );
 }
 
