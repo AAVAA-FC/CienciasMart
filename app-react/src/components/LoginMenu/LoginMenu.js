@@ -1,10 +1,12 @@
-import './LogMenu.css';
+import './LoginMenu.css';
 import { useState } from 'react';
+import { useAuth } from '../../hooks/useAuth';
 
-function LoginMenu({onHandleLogin}) {
+function LoginMenu() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const { login } = useAuth();
 
   const submitHandler = async (event) => {
     event.preventDefault();
@@ -25,7 +27,7 @@ function LoginMenu({onHandleLogin}) {
 
       if (response.ok) {
         console.log(response);
-	      onHandleLogin({username});  
+        login({ username })
       } else {
         console.log(response_data.error);
         setMessage(response_data.error);
