@@ -54,7 +54,7 @@ function SignUpMenu() {
                 </div>
                 <div className="form-group">
                 <label htmlFor="email">Correo</label>
-                <input type="text" id="email" name="email" onChange={(event) => setEmail(event.target.value)} required/>
+                <input type="email" id="email" name="email" onChange={(event) => setEmail(event.target.value)} required/>
                 </div> 
                 <div className="form-group">
                 <label htmlFor="phone">Número de teléfono</label>
