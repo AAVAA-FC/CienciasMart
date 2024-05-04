@@ -1,6 +1,7 @@
 import './LoginMenu.css';
 import { useState } from 'react';
 import { useAuth } from '../../hooks/useAuth';
+import { Link } from 'react-router-dom';
 
 function LoginMenu() {
   const [username, setUsername] = useState('');
@@ -47,14 +48,18 @@ function LoginMenu() {
             <form onSubmit={submitHandler}>
                 <div className="form-group">
                 <label htmlFor="username">Correo</label>
-                <input type="text" id="username" name="username" onChange={(event) => setUsername(event.target.value)}/>
+                <input type="text" id="username" name="username" onChange={(event) => setUsername(event.target.value)} required/>
                 </div>
                 <div className="form-group">
                 <label htmlFor="password">Contraseña</label>
-                <input type="password" id="password" name="password" onChange={(event) => setPassword(event.target.value)}/>
+                <input type="password" id="password" name="password" onChange={(event) => setPassword(event.target.value)} required/>
                 </div>
-                <button type="submit">Login</button>
+                <button type="submit">Ingresar</button>
             </form>
+            <div className="login-signup">
+              <p>¿Aún no tienes una cuenta?</p>
+              <Link to="/signup"><p>Registrarse</p></Link>
+            </div>
         </div>
       </div>
       {message && <div className="login-message"><div className='error-message'>{message}</div></div>}
