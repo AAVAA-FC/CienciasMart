@@ -15,7 +15,8 @@ function SignUpMenu() {
     const data = {
         name: name,
         email: email,
-        phone: phone
+        phone: phone,
+        role: role
     };
 
     try {
