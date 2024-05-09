@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 from flask_cors import CORS
 from db.alchemyClasses import db
-from controllers.auth.auth import auth_bp
+from controllers.auth import auth_bp
 
 app = Flask(__name__)
 CORS(app)
