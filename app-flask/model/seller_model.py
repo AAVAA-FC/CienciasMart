@@ -10,9 +10,9 @@ def get_seller_by_username(username: str):
 def get_seller_by_cellphone(cellphone: str):
     return Seller.query.filter(Seller.cellphone == cellphone).first()
 
-def add_seller(email:str, username:str, phone:str):
+def add_seller(email:str, username:str, cellphone:str, password:str):
     try:
-        seller = Seller(email=email, username=username, phone=phone)
+        seller = Seller(email=email, username=username, cellphone=cellphone, password=password)
 
         db.session.add(seller)
         db.session.commit()

@@ -10,12 +10,13 @@ def get_buyer_by_username(username: str):
 def get_buyer_by_cellphone(cellphone: str):
     return Buyer.query.filter(Buyer.cellphone == cellphone).first()
 
-def add_buyer(email:str, username:str, phone:str):
+def add_buyer(email:str, username:str, cellphone:str, password:str):
     try:
-        buyer = Buyer(email=email, username=username, phone=phone)
+        buyer = Buyer(email=email, username=username, cellphone=cellphone, password=password)
 
         db.session.add(buyer)
         db.session.commit()
         return buyer
     except (Exception) as e:
+        print(e)
         return None

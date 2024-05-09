@@ -14,7 +14,7 @@ class Buyer(db.Model):
     password = Column(String(60))
     cellphone = Column(String(10), unique=True)
 
-    def __init__(self, username, mother, email, password, cellphone):
+    def __init__(self, username, email, password, cellphone):
         self.username = username
         self.email = email
         self.cellphone = cellphone
