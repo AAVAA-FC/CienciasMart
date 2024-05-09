@@ -31,7 +31,7 @@ CREATE TABLE product (
     description VARCHAR(80) NOT NULL,
     stock INT,
     cellphone CHAR(10) NOT NULL UNIQUE,
-    photo LONGBLOB NOT NULL UNIQUE,
+    photo LONGBLOB NOT NULL,
     category VARCHAR(20) NOT NULL,
     price FLOAT8 NOT NULL,
     CONSTRAINT product_fk FOREIGN KEY (seller_id) REFERENCES seller(seller_id),
