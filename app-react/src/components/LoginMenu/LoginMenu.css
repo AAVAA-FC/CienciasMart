@@ -60,7 +60,7 @@
     align-items: center;
 }
 
-.error-message {
+.login-message .error-message {
     padding: 15px 30px;
     border: 1px solid #ff8888;
     background-color: #ffc3c3;
