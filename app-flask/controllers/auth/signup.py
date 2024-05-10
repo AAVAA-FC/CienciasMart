@@ -5,11 +5,11 @@ from model.seller_model import *
 from model.buyer_model import *
 from . import auth_bp
 from utils.utils import generate_temporary_password
+from mail.mail import send_email
 
 @auth_bp.route('/signup', methods=['POST'])
 def signup():
     data = request.get_json()
-    print(data)
     email = data.get('email')
 
     if get_seller_by_email(email) or get_buyer_by_email(email):
@@ -26,7 +26,6 @@ def signup():
     role = data.get('role')
 
     password = generate_temporary_password()
-    print(password)
 
     if role == "Comprador":
         user = add_buyer(email=email, username=username, cellphone=phone,
@@ -34,5 +33,12 @@ def signup():
     else:
         user = add_seller(email=email, username=username, cellphone=phone,
                           password=password)
-
+    subject = "Bienvenido a Cienciasmart"
+    template = "signup.html"
+    additional_data = {
+        'username': username,
+        'password': password
+    }
+    print(send_email(email, subject, template, **additional_data))
     return jsonify({'message': 'Registro exitoso', 'tipo': role}), 200
+
