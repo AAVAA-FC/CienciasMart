@@ -7,6 +7,7 @@ import WelcomeMenu from "./components/WelcomeMenu/WelcomeMenu";
 import { AuthProvider } from "./hooks/useAuth";
 import SignUp from "./components/SignUp/SignUp";
 import HomeBuyer from "./components/Buyer/HomeBuyer/HomeBuyer";
+import ProductPage from "./components/Buyer/Products/ProductPage";
 
 function App() {
     return(
@@ -17,10 +18,8 @@ function App() {
                 <Route element={<ProtectedRoute />}>
                     <Route path="/" element={<Landing />}/>
                     <Route path="/welcome" element={<WelcomeMenu />}/>
-                    
+                    <Route path="/comprar/*" element={<HomeBuyer search={"featured"}/>} />
                 </Route>
-                
-                <Route path="/comprar" element={<HomeBuyer />}/> {/** Al final proteger esta ruta */}
             </Routes>
         </AuthProvider>
         
