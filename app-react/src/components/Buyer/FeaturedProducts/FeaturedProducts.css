@@ -35,14 +35,15 @@
 .product-card img {
     width: 300px;
     height: 300px;
+    border-radius: 10px;
 }
 
 .featured .error-message,
 .featured .loading-message {
-    font-size: 20px;
+    font-size: 25px;
 }
 
-.calificacion {
+.featured .card-bottom {
     display: flex;
     justify-content: space-between;
 }

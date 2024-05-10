@@ -14,7 +14,7 @@ export const useFetch = (url) => {
                     const responseData = await response.json();
                     setData(responseData);
                 } else {
-                    throw new Error("Fetching error");
+                    throw new Error("no se pudieron obtener los datos");
                 }
             } catch(error) {
                 setError(error);
