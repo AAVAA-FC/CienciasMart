@@ -14,6 +14,7 @@ function ProductPage() {
         <div className="product">
             <div className="product-container">
                <div className="productpage-card">
+               {/** Agregar error y loading */}
                 <div className="product-image">
                     <img src={frog} alt="Rana" /> {/** product.image */}
                 </div>
@@ -32,8 +33,9 @@ function ProductPage() {
                      reuniones o explorando la ciudad. {/** product.description */}
                     </p>
 
-                    <div className="request-product">
-                        <button> Apartar </button>
+                    <div className="footer-product">
+                        <p>4 disponibles</p> {/** {product.stock} */}
+                        <button className="reserve-button"> Apartar </button>
                     </div>
                 </div>
                </div>

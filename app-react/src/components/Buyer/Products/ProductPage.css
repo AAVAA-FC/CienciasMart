@@ -62,7 +62,35 @@
     text-align: justify;
 }
 
-.request-product {
+.footer-product {
     display: flex;
-    justify-content: right;
+    justify-content: space-between;
+    margin-top: 50px;
+}
+
+.footer-product p {
+    font-size: 16px;
+    color: #4CAF50;
+    font-weight: bolder;
+    text-align: center;
+}
+
+.reserve-button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    font-weight: bold;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 20px;
+    transition: background-color 0.3s;
+}
+
+.reserve-button:hover {
+    background-color: #45a049; 
 }
