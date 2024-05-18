@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 50vh;
+    height: 30rem;
     margin-top: 50px;
 }
 
@@ -89,7 +89,7 @@
     margin-top: 60px;
 }
 
-.error-message {
+.signup-message .error-message {
     padding: 15px 30px;
     border: 1px solid #ff8888;
     background-color: #ffc3c3;

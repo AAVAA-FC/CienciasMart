@@ -13,7 +13,11 @@ function Login() {
     
     useEffect(() => {
       if(user !== null){
-        navigate('/welcome');
+        if(user.userRole == "buyer") {
+          navigate('/comprar');
+        } else {
+          navigate('/comprar'); // cambiar a /vender
+        }
       }
     }, [navigate, user]); 
 
