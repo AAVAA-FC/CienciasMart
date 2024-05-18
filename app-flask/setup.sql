@@ -2,7 +2,7 @@ create database cienciasmart;
 
 create user 'aavaa'@'localhost' identified by 'aavaa';
 
-grant all privileges on cienciasmart to 'aavaa'@'localhost' with grant option;
+grant all privileges on cienciasmart.* to 'aavaa'@'localhost' with grant option;
 
 use cienciasmart;
 
