@@ -34,7 +34,7 @@ def signup():
         user = add_seller(email=email, username=username, cellphone=phone,
                           password=password)
     if user is None:
-        return = jsonify({'error': 'Error interno de servidor'}), 500
+        return jsonify({'error': 'Error interno de servidor'}), 500
     subject = "Bienvenido a Cienciasmart"
     template = "signup.html"
     additional_data = {
