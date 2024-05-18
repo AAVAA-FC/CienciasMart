@@ -32,10 +32,10 @@ function HeaderBuyer() {
             <header className="header">
                 
                 <div className="left">
-                    <button className="logo-btn">
+                    <Link className="logo-btn" to="/comprar">
                         <img src={cart} alt="CiencaSmart Logo" className="logo" />
                         <span className="app-name">CIENCIASMART</span>
-                    </button>
+                    </Link>
                 </div>
             
                 <div className="middle">
