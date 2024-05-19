@@ -1,5 +1,6 @@
 from db.alchemyClasses.Product import Product
 from db.alchemyClasses.Product import db
+from sqlalchemy import text
 
 def get_products_by_id(seller_id):
     return Product.query.filter(Product.seller_id == seller_id).all()
@@ -28,7 +29,9 @@ def search_products(search_query):
         WHERE MATCH(name, description, category) AGAINST (:search_query IN BOOLEAN MODE)
     """
     
-    products = db.session.execute(sql_query, {'search_query': search_query})
+    query = text(sql_query)
+    
+    products = db.session.execute(query, {'search_query': search_query})
     
     product_objects = []
     for row in products:
@@ -47,6 +50,7 @@ def search_products(search_query):
     products.close()
     
     return product_objects
+
 
     
 
