@@ -6,6 +6,7 @@ import usericon from '../../../assets/userIcon.svg';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { useAuth } from '../../../hooks/useAuth';
+import SearchBar from "./SearchBar/SearchBar";
 
 function HeaderBuyer() {
 
@@ -39,7 +40,7 @@ function HeaderBuyer() {
                 </div>
             
                 <div className="middle">
-                    <input type="text" placeholder="Buscar productos..." className="search-bar" />
+                    <SearchBar></SearchBar>
                 </div>
         
                 <div className="right">

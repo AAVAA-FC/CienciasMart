@@ -43,12 +43,26 @@
 
 .middle input {
     border: 1px solid #464646;
-    border-radius: 20px;
+    border-radius: 20px 0 0 20px;
+}
+
+.middle button {
+    padding: 8.5px;
+    border: 1px solid #464646;
+    cursor: pointer;
+    border-radius: 0 20px 20px 0; /* Bordes redondeados en el lado derecho */
+    background-color: #464646;
+}
+
+.middle button img{
+    width: 15px; /* Tamaño de la imagen del icono de búsqueda */
+    height: 13.5px;
+    filter: invert(1);
 }
 
 .search-bar {
-    width: 100%;
-    padding: 8px 12px;
+    width: 80%;
+    padding: 7.3px 12px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 5px;
