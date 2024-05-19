@@ -25,11 +25,12 @@ function LoginMenu() {
       
       const response_data = await response.json();
       const userRole = response_data.tipo;
+      const id = response_data.userId;
       console.log(response_data.tipo);
 
       if (response.ok) {
         console.log(response);
-        login({ username, userRole });
+        login({ username, userRole, id });
       } else {
         console.log(response_data.error);
         setMessage(response_data.error);

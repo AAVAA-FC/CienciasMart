@@ -94,3 +94,18 @@
 .reserve-button:hover {
     background-color: #45a049; 
 }
+
+.footer-product .reserved-message {
+    display: inline-block;
+    background-color: #3d8b3f;
+    color: white;
+    font-weight: bold;
+    padding: 15px 32px;
+    text-align: center;
+    font-size: 16px;
+    margin: 4px 2px;
+    border-radius: 20px;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s;
+}

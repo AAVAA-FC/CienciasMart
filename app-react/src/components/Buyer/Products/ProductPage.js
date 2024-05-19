@@ -5,10 +5,48 @@ import HeaderBuyer from "../HeaderBuyer/HeaderBuyer";
 import "./ProductPage.css";
 import { Link } from "react-router-dom";
 import frog from "../../../assets/frog.jpeg"
+import { useAuth } from "../../../hooks/useAuth";
+import { useNavigate } from 'react-router';
+import { useState } from "react";
 
 function ProductPage() {
+    const navigate = useNavigate();
     const { productId } = useParams();
     const { data: product, loading, error} = useFetch(`http://127.0.0.1:5000/api/products/${productId}`);
+    const { user } = useAuth();
+    const [reserved, setReserved] = useState(false);
+
+    const reserveHandler = async () => {
+        if(!user) {
+            navigate('/login');
+            return;
+        }
+
+        try {
+
+            const data = {
+                buyerId: user.id,
+                sellerId: product.sellerId,   //product.seller.id ?
+                productId: product.id
+            }
+
+            const response = await fetch('http://127.0.0.1:5000/api/reserve', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            if(response.ok){
+                setReserved(true);
+            } else{
+                throw new Error("Fallo al reservar");
+            }
+        } catch (error) {
+            alert(error.message);
+        }
+    }
 
     return(
         <div className="product">
@@ -35,7 +73,11 @@ function ProductPage() {
 
                     <div className="footer-product">
                         <p>4 disponibles</p> {/** {product.stock} */}
-                        <button className="reserve-button"> Apartar </button>
+                        {reserved ? (
+                                <p className="reserved-message">Apartado</p>
+                            ) : (
+                                <button className="reserve-button" onClick={reserveHandler}>Apartar</button>
+                        )}
                     </div>
                 </div>
                </div>
