@@ -1,9 +1,6 @@
-from sqlalchemy import Column, Integer, String, Float, ForeignKey, CheckConstraint, LargeBinary
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, LargeBinary
 from sqlalchemy.orm import relationship
-
 from db.alchemyClasses import db
-from bcrypt import hashpw, checkpw, gensalt
-
 
 class Product(db.Model):
 
@@ -21,8 +18,9 @@ class Product(db.Model):
 
     seller = relationship('Seller', back_populates='products')
 
-    def __init__(self, seller_id, name, description, stock, cellphone, photo, category, price):
-        self.seller_id=seller_id
+    def __init__(self, seller_id, name, description, stock, cellphone, photo, category, price, product_id=None):
+        self.product_id = product_id
+        self.seller_id = seller_id
         self.name = name
         self.description = description
         self.stock = stock
@@ -33,6 +31,7 @@ class Product(db.Model):
 
     def to_dict(self):
         return {
+            'product_id': self.product_id,
             'seller_id': self.seller_id,
             'name': self.name,
             'description': self.description,
@@ -42,5 +41,3 @@ class Product(db.Model):
             'category': self.category,
             'price': self.price
         }
-    
-

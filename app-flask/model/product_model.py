@@ -36,6 +36,7 @@ def search_products(search_query):
     product_objects = []
     for row in products:
         product = Product(
+            product_id =row.product_id,
             seller_id=row.seller_id,
             name=row.name,
             description=row.description,
