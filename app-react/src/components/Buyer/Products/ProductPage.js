@@ -16,30 +16,38 @@ function ProductPage() {
     const { productId } = useParams();
     const { data: product, loading, error} = useFetch(`http://127.0.0.1:5000/api/products/${productId}`);
     const { user } = useAuth();
+    const userId = useFetch(`http://127.0.0.1:5000/api/getUserId/${user.username}`);
     const [reserved, setReserved] = useState(false);
-    const reservationUrl = user ? `http://127.0.0.1:5000/api/check_reservation/${user.id}/${productId}` : null;
+    const [completed, setCompleted] = useState(false);
+    const reservationUrl = user ? `http://127.0.0.1:5000/api/checkReservation/${userId}&${productId}` : null;
     const { data: reservationData, loading: reservationLoading, error: reservationError } = useFetch(reservationUrl);
+    
 
     useEffect(() => {
         if (reservationData) {
-            setReserved(reservationData.isReserved);
+            setReserved(true);
+            if(reservationData.isCompleted){
+                setCompleted(true);
+            }
         }
     }, [reservationData]);
-
 
     const testHandler = () => {
         setReserved(true);
     }
-    const reserveHandler = async () => {
+    const reserveHandler = async (e) => {
+        e.preventDefault();
+        
         if(!user) {
             navigate('/login');
             return;
         }
-
+        
+       
         try {
 
             const data = {
-                buyerId: user.id,
+                buyerId: userId,
                 sellerId: product.sellerId,   //product.seller.id ?
                 productId: product.id
             }
@@ -100,7 +108,7 @@ function ProductPage() {
                     
                 </div>
                </div>
-               {reserved && <WriteReview/>}
+               {reserved && <WriteReview userId={userId} productId={productId}/>}
                <Review productId={productId} /> {/** !error &% review */}
             </div>
         </div>
