@@ -29,16 +29,14 @@ def request_product():
     buyer.request(product)
     return jsonify({'message': 'Petición exitosa'}), 200
 
-@requests_bp.route('/get_request_status', methods=['POST'])
+@requests_bp.route('/get_request_status', methods=['GET'])
 def get_request_status():
-    data = request.get_json()
-    buyer_id = data.get('buyerId')
-    product_id = data.get('productId')
+    buyer_id = request.args.get('buyer_id')
+    product_id = request.args.get('product_id')
 
     if not buyer_id or not product_id:
         return jsonify({'error': 'Falta el ID del comprador o del producto en los datos enviados.'}), 400
 
-    
     request_data = get_request_by_ids(buyer_id=buyer_id, product_id=product_id)
 
     if request_data is None:
