@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String
-from db.alchemyClasses import db
+from db.alchemyClasses import Product, db
 from .Request import Request
 from bcrypt import hashpw, checkpw, gensalt
 
@@ -40,6 +40,4 @@ class Buyer(db.Model):
     def has_requested(self, product):
         if product.product_id is None:
             return False
-        print("AHAHA")
         return self.products_requested.filter(Request.product_id == product.product_id).first() is not None
-

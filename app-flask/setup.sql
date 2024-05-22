@@ -41,6 +41,7 @@ CREATE TABLE product (
 CREATE TABLE request (
     product_id INT AUTO_INCREMENT,
     buyer_id INT,
+    finished BOOLEAN NOT NULL,
 	CONSTRAINT request_pk PRIMARY KEY (product_id, buyer_id),
     CONSTRAINT request_fk FOREIGN KEY (product_id) REFERENCES product(product_id),
 	CONSTRAINT request_fk2 FOREIGN KEY (buyer_id) REFERENCES buyer(buyer_id)
