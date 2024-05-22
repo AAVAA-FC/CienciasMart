@@ -31,7 +31,7 @@ function LoginMenu() {
 
       if (response.ok) {
         console.log(response);
-        login({ username, userRole, });
+        login({ username, userRole, id});
       } else {
         console.log(response_data.error);
         setMessage(response_data.error);

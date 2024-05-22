@@ -18,32 +18,43 @@ function ProductPage() {
     const { user } = useAuth();
     const [reserved, setReserved] = useState(false);
     const [completed, setCompleted] = useState(false);
-    const reservationUrl = user ? `http://127.0.0.1:5000/api/get_request_status?buyer_id=${user.id}&product_id=${productId}` : null;
+    const reservationUrl = user ? `http://127.0.0.1:5000/api/requests/get_request_status?buyer_id=${user.id}&product_id=${productId}` : null;
     const { data: reservationData, loading: reservationLoading, error: reservationError } = useFetch(reservationUrl);
-    const sellerUrl = product ? `http://127.0.0.1:5000/api/sellers/seller/${product.seller_id}` : null;
-    const { data: seller, loading: sellerLoading, error: sellerError} = useFetch(sellerUrl);
+    const [sellerData, setSellerData] = useState(null);
 
-    
+
 
     useEffect(() => {
         if (reservationData) {
-            setReserved(true);
-            if(reservationData.isCompleted){
-                setCompleted(true);
-            }
+            reservationData.estado_request == "En Progreso" ? setReserved(true) : setReserved(false);
+            reservationData.estado_request == "Completada" ? setCompleted(true) : setCompleted(false);
         }
     }, [reservationData]);
 
-    const testHandler = () => {
-        console.log("Id: ");
-        console.log(productId);
-        console.log("Product:");
-        console.log(product);
-        console.log(error);
-        setReserved(true);
-    }
+    useEffect(() => {
+        if(product){
+            fetchSellerData();
+        }
+    }, [product]);
+
+    const fetchSellerData = async () => {
+        
+        try {
+            const response = await fetch(`http://127.0.0.1:5000/api/sellers/seller/${product.seller_id}`);
+            if (!response.ok) {
+                throw new Error(`Error cargando los datos: ${response.statusText}`);
+            }
+            const sellerData = await response.json();
+            setSellerData(sellerData);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+
     const reserveHandler = async (e) => {
         e.preventDefault();
+        
 
         if(!user) {
             navigate('/login');
@@ -52,10 +63,9 @@ function ProductPage() {
         
         
         try {
-
             const data = {
                 buyerId: user.id,
-                productId: product.id
+                productId: productId
             }
 
             const response = await fetch('http://127.0.0.1:5000/api/requests/request', {
@@ -65,14 +75,18 @@ function ProductPage() {
                 },
                 body: JSON.stringify(data),
             });
+            
+            const response_data = await response.json();
 
             if(response.ok){
                 setReserved(true);
             } else{
+                console.log(response_data);
                 throw new Error("Fallo al reservar");
             }
         } catch (error) {
             alert(error.message);
+            console.log(error);
         }
     }
 
@@ -89,10 +103,10 @@ function ProductPage() {
                             </div>
                             <div className="product-info">
                                 <h2>{product.name}</h2> 
-                                <div className="seller-info">
-                                    <p>Vendedor: Karla Ramírez Pulido</p> {/* seller.name */}
+                                {sellerData && <div className="seller-info">
+                                    <p>Vendedor: {sellerData.username}</p> 
                                     <p>Calificación: 5/5</p> {/* seller.calificacion */}
-                                </div>
+                                </div>}
                                 <p className="description">
                                     { product.description }
                                 </p>
@@ -105,15 +119,15 @@ function ProductPage() {
                                             <p className="additional-message">Te mandamos un correo con la información</p>
                                         </div>
                                     ) : (
-                                        <button className="reserve-button" onClick={testHandler}>Apartar</button>
+                                        <button className="reserve-button" onClick={reserveHandler}>Apartar</button>
                                     )}
                                 </div>
                             </div>
                         </>
                     )}
                 </div>
-                {reserved && <WriteReview userId={user.id} productId={productId}/>}
-                <Review productId={productId} /> {/* !error &% review */}
+                {!error && completed && <WriteReview userId={user.id} productId={productId}/>}
+                {!error && <Review productId={productId} />} 
             </div>
         </div>
     );
