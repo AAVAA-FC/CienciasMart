@@ -14,12 +14,11 @@ import WriteReview from "../Review/WriteReview";
 function ProductPage() {
     const navigate = useNavigate();
     const { productId } = useParams();
-    const { data: product, loading, error} = useFetch(`http://127.0.0.1:5000/api/products/${productId}`);
+    const { data: product, loading, error} = useFetch(`http://127.0.0.1:5000/api/products/product/${productId}`);
     const { user } = useAuth();
-    const userId = useFetch(`http://127.0.0.1:5000/api/getUserId/${user.username}`);
     const [reserved, setReserved] = useState(false);
     const [completed, setCompleted] = useState(false);
-    const reservationUrl = user ? `http://127.0.0.1:5000/api/checkRequest?buyer_id=${userId}&product_id=${productId}` : null;
+    const reservationUrl = user ? `http://127.0.0.1:5000/api/get_request_status?buyer_id=${user.id}&product_id=${productId}` : null;
     const { data: reservationData, loading: reservationLoading, error: reservationError } = useFetch(reservationUrl);
     
 
@@ -33,6 +32,11 @@ function ProductPage() {
     }, [reservationData]);
 
     const testHandler = () => {
+        console.log("Id: ");
+        console.log(productId);
+        console.log("Product:");
+        console.log(product);
+        console.log(error);
         setReserved(true);
     }
     const reserveHandler = async (e) => {
@@ -47,7 +51,7 @@ function ProductPage() {
         try {
 
             const data = {
-                buyerId: userId,
+                buyerId: user.id,
                 productId: product.id
             }
 
@@ -74,11 +78,12 @@ function ProductPage() {
             <div className="product-container">
                <div className="productpage-card">
                {/** Agregar error y loading */}
+                
                 <div className="product-image">
                     <img src={frog} alt="Rana" /> {/** product.image */}
                 </div>
                 <div className="product-info">
-                    <h2>Monedero de ranita</h2> {/** product.name */}
+                    <h2>Monedero</h2> {/** product.name */}
                     <div className="seller-info">
                         <p>Vendedor: Karla Ramírez Pulido</p> {/** seller.name */}
                         <p>Calificación: 5/5</p> {/** seller.calificacion */}
@@ -107,7 +112,7 @@ function ProductPage() {
                     
                 </div>
                </div>
-               {reserved && <WriteReview userId={userId} productId={productId}/>}
+               {reserved && <WriteReview userId={user.id} productId={productId}/>}
                <Review productId={productId} /> {/** !error &% review */}
             </div>
         </div>
