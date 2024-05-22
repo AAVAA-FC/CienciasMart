@@ -19,7 +19,7 @@ function ProductPage() {
     const userId = useFetch(`http://127.0.0.1:5000/api/getUserId/${user.username}`);
     const [reserved, setReserved] = useState(false);
     const [completed, setCompleted] = useState(false);
-    const reservationUrl = user ? `http://127.0.0.1:5000/api/checkReservation/${userId}&${productId}` : null;
+    const reservationUrl = user ? `http://127.0.0.1:5000/api/checkRequest?buyer_id=${userId}&product_id=${productId}` : null;
     const { data: reservationData, loading: reservationLoading, error: reservationError } = useFetch(reservationUrl);
     
 
@@ -37,7 +37,7 @@ function ProductPage() {
     }
     const reserveHandler = async (e) => {
         e.preventDefault();
-        
+
         if(!user) {
             navigate('/login');
             return;
@@ -48,11 +48,10 @@ function ProductPage() {
 
             const data = {
                 buyerId: userId,
-                sellerId: product.sellerId,   //product.seller.id ?
                 productId: product.id
             }
 
-            const response = await fetch('http://127.0.0.1:5000/api/reserve', {
+            const response = await fetch('http://127.0.0.1:5000/api/requests/request', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
