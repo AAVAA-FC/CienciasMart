@@ -19,3 +19,6 @@ def add_seller(email:str, username:str, cellphone:str, password:str):
         return seller
     except (Exception) as e:
         return None
+
+def get_seller_by_id(seller_id: str):
+    return Seller.query.filter(Seller.seller_id == seller_id).first()
