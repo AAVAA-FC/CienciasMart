@@ -8,6 +8,8 @@ import frog from "../../../assets/frog.jpeg"
 import { useAuth } from "../../../hooks/useAuth";
 import { useNavigate } from 'react-router';
 import { useState } from "react";
+import Review from "../Review/Review";
+import WriteReview from "../Review/WriteReview";
 
 function ProductPage() {
     const navigate = useNavigate();
@@ -15,7 +17,19 @@ function ProductPage() {
     const { data: product, loading, error} = useFetch(`http://127.0.0.1:5000/api/products/${productId}`);
     const { user } = useAuth();
     const [reserved, setReserved] = useState(false);
+    const reservationUrl = user ? `http://127.0.0.1:5000/api/check_reservation/${user.id}/${productId}` : null;
+    const { data: reservationData, loading: reservationLoading, error: reservationError } = useFetch(reservationUrl);
 
+    useEffect(() => {
+        if (reservationData) {
+            setReserved(reservationData.isReserved);
+        }
+    }, [reservationData]);
+
+
+    const testHandler = () => {
+        setReserved(true);
+    }
     const reserveHandler = async () => {
         if(!user) {
             navigate('/login');
@@ -60,7 +74,7 @@ function ProductPage() {
                     <h2>Monedero de ranita</h2> {/** product.name */}
                     <div className="seller-info">
                         <p>Vendedor: Karla Ramírez Pulido</p> {/** seller.name */}
-                        <p>Calificación</p> {/** seller.calificacion */}
+                        <p>Calificación: 5/5</p> {/** seller.calificacion */}
                     </div>
                     <p className="description">
                     ¡Dale un toque de encanto y diversión a tu estilo con nuestro adorable monedero en forma de ranita!
@@ -74,13 +88,20 @@ function ProductPage() {
                     <div className="footer-product">
                         <p>4 disponibles</p> {/** {product.stock} */}
                         {reserved ? (
+                               <div className="reserved">
                                 <p className="reserved-message">Apartado</p>
+                                <p className="additional-message">Te mandamos un correo con la información</p>
+                               </div>
                             ) : (
-                                <button className="reserve-button" onClick={reserveHandler}>Apartar</button>
+                                <button className="reserve-button" onClick={testHandler}>Apartar</button>
                         )}
                     </div>
+
+                    
                 </div>
                </div>
+               {reserved && <WriteReview/>}
+               <Review productId={productId} /> {/** !error &% review */}
             </div>
         </div>
     );

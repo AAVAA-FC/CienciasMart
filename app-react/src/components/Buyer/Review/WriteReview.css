@@ -1,0 +1,21 @@
+.write-review {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.writereview-section {
+    flex-basis: 90%;
+    display: flex;
+    flex-direction: column;
+}
+
+.write-review h2 {
+    font-size: 25px;
+    margin: 0px;
+}
+
+.write-review h3 {
+    font-size: 17px;
+    color: #464646;
+}

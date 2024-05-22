@@ -95,6 +95,12 @@
     background-color: #45a049; 
 }
 
+.footer-product .reserved {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .footer-product .reserved-message {
     display: inline-block;
     background-color: #3d8b3f;
@@ -108,4 +114,13 @@
     border: none;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s;
+    width: 80px;
+    text-align: center;
+}
+
+.footer-product .additional-message {
+    color: #4CAF50;
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: center;
 }
