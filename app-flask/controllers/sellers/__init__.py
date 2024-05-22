@@ -1,5 +1,5 @@
 from flask import Blueprint
 
-products_bp = Blueprint('products', __name__)
+sellers_bp = Blueprint('sellers', __name__)
 
 from . import homeseller

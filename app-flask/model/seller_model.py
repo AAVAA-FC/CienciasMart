@@ -10,6 +10,9 @@ def get_seller_by_username(username: str):
 def get_seller_by_cellphone(cellphone: str):
     return Seller.query.filter(Seller.cellphone == cellphone).first()
 
+def get_seller_by_id(seller_id: int):
+    return Seller.query.filter(Seller.seller_id == seller_id).first()
+
 def add_seller(email:str, username:str, cellphone:str, password:str):
     try:
         seller = Seller(email=email, username=username, cellphone=cellphone, password=password)

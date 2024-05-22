@@ -3,7 +3,7 @@ from sqlalchemy.orm import relationship
 
 from db.alchemyClasses import db
 from bcrypt import hashpw, checkpw, gensalt
-
+import base64
 
 class Product(db.Model):
 
@@ -32,13 +32,14 @@ class Product(db.Model):
         self.price = price
 
     def to_dict(self):
+        photo_base64 = base64.b64encode(self.photo).decode('utf-8')
         return {
             'seller_id': self.seller_id,
             'name': self.name,
             'description': self.description,
             'stock': self.stock,
             'cellphone': self.cellphone,
-            'photo': self.photo,
+            'photo': photo_base64,
             'category': self.category,
             'price': self.price
         }

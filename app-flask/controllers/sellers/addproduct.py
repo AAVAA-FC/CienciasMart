@@ -3,13 +3,15 @@ from db.alchemyClasses.Seller import Seller
 from db.alchemyClasses.Product import Product
 from model.seller_model import *
 from model.product_model import *
-from . import products_bp
+from . import sellers_bp
 
-@products_bp.route('/homeseller/<seller_id>', methods=['GET'])
+@sellers_bp.route('/homeseller/<int:seller_id>', methods=['POST'])
 def homeseller(seller_id):
 
+    seller = get_seller_by_id(seller_id)
     products = get_products_by_id(seller_id)
     products_list = [product.to_dict() for product in seller.products]
+    
 
     if not products_list:
         return jsonify({'error': 'Aún no hay productos publicados.'}), 404
