@@ -1,26 +1,21 @@
 import React, { useState } from 'react';
-//import { useHistory } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import searchicon from '../../../../assets/search-icon.png';
 
-// Componente del formulario
-function SearchBar() {
-  const [toSearch, setToSearch] = useState('');
-//  const history = useHistory();
 
-  // Función para manejar cambios en la caja de texto
-  const changeHandler = (event) => {
-    setToSearch(event.target.value);
-  };
+function SearchBar() {
+    const [toSearch, setToSearch] = useState('');
+    const navigate = useNavigate();
 
   // Función para manejar el envío del formulario
-  const submitHandler = (event) => {
-    event.preventDefault();
-//    history.push(`/otro-componente/${toSearch}`);
+    const submitHandler = (event) => {
+	event.preventDefault();
+	navigate('/search-results', {state: {toSearch}});	
   };
 
   return (
     <form onSubmit={submitHandler}>
-      <input type="text" value={toSearch} onChange={changeHandler} placeholder="Busar productos..." className="search-bar"/>
+	<input type="text" value={toSearch} onChange={(event) => setToSearch(event.target.value)} placeholder="Busar productos..." className="search-bar"/>
 	<button type="submit">
 	    <img src={searchicon} alt="Search Icon"/>
 	</button>
