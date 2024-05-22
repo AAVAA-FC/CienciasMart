@@ -4,6 +4,11 @@
     justify-content: center;
 }
 
+.product .error-message,
+.product .loading-message {
+    font-size: 25px;
+}
+
 .product-container {
     display: flex;
     flex-direction: column;

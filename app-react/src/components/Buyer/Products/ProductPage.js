@@ -20,6 +20,9 @@ function ProductPage() {
     const [completed, setCompleted] = useState(false);
     const reservationUrl = user ? `http://127.0.0.1:5000/api/get_request_status?buyer_id=${user.id}&product_id=${productId}` : null;
     const { data: reservationData, loading: reservationLoading, error: reservationError } = useFetch(reservationUrl);
+    const sellerUrl = product ? `http://127.0.0.1:5000/api/sellers/seller/${product.seller_id}` : null;
+    const { data: seller, loading: sellerLoading, error: sellerError} = useFetch(sellerUrl);
+
     
 
     useEffect(() => {
@@ -77,8 +80,8 @@ function ProductPage() {
         <div className="product">
             <div className="product-container">
                 <div className="productpage-card">
-                    {loading && <div>Loading...</div>}
-                    {error && <div>Error: {error.message}</div>}
+                    {error && <h3 className="error-message">Error: {error.message}</h3>}
+                    {loading && <h3 className="loading-message">Cargando...</h3>}
                     {product && (
                         <>
                             <div className="product-image">
