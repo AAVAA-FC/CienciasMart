@@ -4,16 +4,34 @@ from db.alchemyClasses.Product import Product
 from model.seller_model import *
 from model.product_model import *
 from . import sellers_bp
+import base64
 
-@sellers_bp.route('/homeseller/<int:seller_id>', methods=['POST'])
-def homeseller(seller_id):
+@sellers_bp.route('/addproduct/<int:seller_id>', methods=['POST', 'GET'])
+def addproduct(seller_id):
+    data = request.get_json()
+    name = data.get('name')
+    description = data.get('description')
+    stock = data.get('stock')
+    cellphone = data.get('cellphone')
+    photo = data.get('photo')
+    category = data.get('category')
+    price = data.get('price')
 
-    seller = get_seller_by_id(seller_id)
-    products = get_products_by_id(seller_id)
-    products_list = [product.to_dict() for product in seller.products]
-    
+    if not isinstance(photo, bytes):
+        return jsonify({'error': 'El valor de photo no es de tipo bytes-like'}), 400
 
-    if not products_list:
-        return jsonify({'error': 'Aún no hay productos publicados.'}), 404
-    
-    return jsonify({'products_list': products_list}), 200
+    product = add_product(seller_id=seller_id,
+            name=name,
+            description=description,
+            stock=stock,
+            cellphone=cellphone,
+            photo=photo,
+            category=category,
+            price=price)
+
+    if product is None:
+        return jsonify({'error': 'Error interno de servidor'}), 500
+
+    return jsonify({'message': 'Publicación exitosa'}), 200
+
+
