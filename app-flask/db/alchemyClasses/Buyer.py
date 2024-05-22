@@ -23,6 +23,6 @@ class Buyer(db.Model):
     def set_password(self, password):
         hashed_password = hashpw(password.encode('utf-8'), gensalt())
         self.password = hashed_password.decode('utf-8')
-
+        
     def check_password(self, password):
         return checkpw(password.encode('utf-8'), self.password.encode('utf-8'))

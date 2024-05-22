@@ -14,6 +14,8 @@ class Seller(db.Model):
     password = Column(String(60))
     cellphone = Column(String(10), unique=True)
 
+    products = db.relationship('Product', back_populates='seller')
+
     def __init__(self, username, email, password, cellphone):
         self.username = username
         self.email = email
@@ -23,6 +25,6 @@ class Seller(db.Model):
     def set_password(self, password):
         hashed_password = hashpw(password.encode('utf-8'), gensalt())
         self.password = hashed_password.decode('utf-8')
-
+        
     def check_password(self, password):
         return checkpw(password.encode('utf-8'), self.password.encode('utf-8'))

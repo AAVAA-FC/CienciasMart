@@ -1,5 +1,4 @@
 from sqlalchemy import Column, Integer, String, Float, ForeignKey, LargeBinary
-from sqlalchemy.orm import relationship
 from db.alchemyClasses import db
 
 class Product(db.Model):
@@ -16,7 +15,8 @@ class Product(db.Model):
     category = Column(String(20), nullable=False)
     price = Column(Float, nullable=False)
 
-    seller = relationship('Seller', back_populates='products')
+    seller = db.relationship('Seller', back_populates='products')
+
 
     def __init__(self, seller_id, name, description, stock, cellphone, photo, category, price, product_id=None):
         self.product_id = product_id

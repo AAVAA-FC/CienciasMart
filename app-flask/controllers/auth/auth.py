@@ -11,7 +11,6 @@ def login():
     data = request.get_json()
     email = data.get('email')
     password = data.get('password') 
-
     seller = get_seller_by_email(email)
     buyer = get_buyer_by_email(email)
 
