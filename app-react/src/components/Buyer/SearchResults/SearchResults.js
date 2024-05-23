@@ -20,7 +20,7 @@ function SearchResults() {
             {!error && <h2>Resultados para : {toSearch}</h2>}
                 <div className="product-list">
 
-                    {error && <h3 className="error-message">Error: {error.message}</h3>}
+                   {error && <h3 className="error-message">Error: {error.message}</h3>}
 
                     {loading && <h3 className="loading-message">Cargando...</h3>}
 
