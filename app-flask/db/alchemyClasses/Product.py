@@ -1,3 +1,4 @@
+import base64
 from sqlalchemy import Column, Integer, String, Float, ForeignKey, LargeBinary
 from db.alchemyClasses import db
 
@@ -37,7 +38,7 @@ class Product(db.Model):
             'description': self.description,
             'stock': self.stock,
             'cellphone': self.cellphone,
-            'photo': self.photo,
+            'photo': base64.b64encode(self.photo).decode('utf-8') if self.photo else None,
             'category': self.category,
             'price': self.price
         }
