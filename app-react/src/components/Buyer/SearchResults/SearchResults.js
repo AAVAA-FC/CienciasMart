@@ -1,67 +1,63 @@
 import "./SearchResults.css";
-import frog from "../../../assets/frog.jpeg"
-import rana from "../../../assets/r.png"
+import frog from "../../../assets/frog.jpeg";
 import { Link } from "react-router-dom";
-import { useFetch } from "../../../hooks/useFetch";
-import {useLocation} from 'react-router-dom'
-
+import { useLocation } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 
 function SearchResults() {
+  const location = useLocation();
+  const toSearch = location.state && location.state.toSearch;
+  const encodedQuery = encodeURIComponent(toSearch);
 
-    const location = useLocation();
-    const toSearch = location.state && location.state.toSearch;
-    const encodedQuery = encodeURIComponent(toSearch);
-    const url = "http://127.0.0.1:5000/api/products/search?$(encodedQuery)";
-    const { data: featured, loading, error } = useFetch(url);    
+  const [searchResult, setSearchResult] = useState([]);
+  const [error, setError] = useState("");
 
-    return(
-        <div className="featured">
-            <div className="featured-container">
-            {!error && <h2>Resultados para : {toSearch}</h2>}
-                <div className="product-list">
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`http://127.0.0.1:5000/api/products/search?query=${encodedQuery}`);
+        const data = await response.json();
 
-                   {error && <h3 className="error-message">Error: {error.message}</h3>}
+        if (response.ok) {
+          setSearchResult(data);
+          setError("");
+        } else {
+          setError(data.error);
+          setSearchResult([]);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setError("Error al buscar productos.");
+        setSearchResult([]);
+      }
+    };
 
-                    {loading && <h3 className="loading-message">Cargando...</h3>}
+    fetchData(); // Llama a la función fetchData al montar el componente
+  }, [encodedQuery]); // Dependencia para ejecutar useEffect cuando la variable encodedQuery cambie
 
-                    {featured?.map((product) => (
-                        <Link key={product.id} className="product-card" to={`product/${product.id}`}>
-                            <img src={frog} alt={product.name} />
-                            <h3>{product.name}</h3>
-                            <p>${product.price}</p>
-                            <div className="card-bottom">
-                                <p>Calificación</p>
-                                <p>Pedro Perez</p>
-                            </div>
-                         </Link>
-                    ))}
-                    <Link className="product-card" to="product/30">
-                        <img src={frog} alt="Rana" />
-                        <h3>Increible rana saltarina</h3>
-                        <p>$100</p> 
-                        <div className="card-bottom">
-                            <p>Calificacion</p>
-                            <p>Pedro Perez</p>
-                        </div>
-                        </Link>   
+  return (
+    <div className="featured">
+      <div className="featured-container">
+        {!error && <h2>Resultados para : {toSearch}</h2>}
+        <div className="product-list">
+          {error && <h3 className="error-message">Error: {error.message}</h3>}
 
-                    {
-                       /**
-                         <Link className="product-card" to="/comprar">
-                        <img src={frog} alt="Rana" />
-                        <h3>Rana</h3>
-                        <p>$100</p> 
-                        <div className="card-bottom">
-                            <p>Calificacion</p>
-                            <p>Pedro Perez</p>
-                        </div>
-                        </Link>    
-                        */
-                    }               
-                </div>
-            </div>
+          {searchResult?.map((product) => (
+            <Link key={product.id} className="product-card" to={`product/${product.id}`}>
+              <img src={frog} alt={product.name} />
+              <h3>{product.name}</h3>
+              <p>${product.price}</p>
+              <div className="card-bottom">
+                <p>Calificación</p>
+                <p>Pedro Perez</p>
+              </div>
+            </Link>
+          ))}
         </div>
-    );
-};
+      </div>
+    </div>
+  );
+}
 
 export default SearchResults;
+
