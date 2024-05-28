@@ -4,9 +4,6 @@ from db.alchemyClasses.Seller import db
 def get_seller_by_email(email: str):
     return Seller.query.filter(Seller.email == email).first()
 
-def get_seller_by_id(seller_id: str):
-    return Seller.query.filter(Seller.seller_id == seller_id).first()
-
 def get_seller_by_username(username: str):
     return Seller.query.filter(Seller.username == username).first()
 
