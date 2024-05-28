@@ -3,6 +3,7 @@ import frog from "../../../assets/frog.jpeg";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import React, { useState, useEffect } from "react";
+import ImageDecoder from '../../../utils/ImageDecoder/ImageDecoder';
 
 function SearchResults() {
   const location = useLocation();
@@ -44,12 +45,11 @@ function SearchResults() {
 
           {searchResult?.map((product) => (
             <Link key={product.id} className="product-card" to={`product/${product.id}`}>
-              <img src={frog} alt={product.name} />
+              <ImageDecoder base64Image={product.photo}/>
               <h3>{product.name}</h3>
               <p>${product.price}</p>
               <div className="card-bottom">
                 <p>Calificación</p>
-                <p>Pedro Perez</p>
               </div>
             </Link>
           ))}
