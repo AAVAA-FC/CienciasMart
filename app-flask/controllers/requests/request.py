@@ -9,25 +9,33 @@ def request_product():
     data = request.get_json()
     buyer_id = data.get('buyerId')
     product_id = data.get('productId')
+    quantity_requested = data.get('quantityRequested')
 
-    if not buyer_id or not product_id:
-        return jsonify({'error': 'Falta el ID del comprador o del producto en los datos enviados.'}), 400
+    if not buyer_id or not product_id or quantity_requested is None:
+        return jsonify({'error': 'Faltan datos en la solicitud. Se requiere el ID del comprador, el ID del producto y la cantidad solicitada.'}), 400
 
     buyer = get_buyer_by_id(buyer_id)
     product = get_product_by_id(product_id)
 
-    
-    if buyer is None:
+    if not buyer:
         return jsonify({'error': 'Comprador no encontrado.'}), 404
-
-    if product is None:
+    if not product:
         return jsonify({'error': 'Producto no encontrado.'}), 404
 
-    if buyer.has_requested(product):
-        return jsonify({'message': 'Comprador ya ha pedido el producto.'}), 400
+    if quantity_requested <= 0:
+        return jsonify({'error': 'La cantidad solicitada debe ser mayor que cero.'}), 400
 
-    buyer.request(product)
-    return jsonify({'message': 'Petición exitosa'}), 200
+    if quantity_requested > product.stock:
+        return jsonify({'error': 'La cantidad solicitada excede la cantidad en stock disponible.'}), 400
+
+    if buyer.has_requested(product):
+        return jsonify({'message': 'El comprador ya ha pedido el producto.'}), 400
+
+    try:
+        buyer.request(product, quantity_requested)
+        return jsonify({'message': 'Petición exitosa'}), 200
+    except ValueError as e:
+        return jsonify({'error': str(e)}), 400
 
 @requests_bp.route('/get_request_status', methods=['GET'])
 def get_request_status():
