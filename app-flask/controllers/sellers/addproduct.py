@@ -13,12 +13,18 @@ def addproduct(seller_id):
     description = data.get('description')
     stock = data.get('stock')
     cellphone = data.get('cellphone')
-    photo = data.get('photo')
+    photo_base64 = data.get('photo')
     category = data.get('category')
     price = data.get('price')
 
-    if not isinstance(photo, bytes):
-        return jsonify({'error': 'El valor de photo no es de tipo bytes-like'}), 400
+    if isinstance(photo_base64, str):
+        try:
+            photo = base64.b64decode(photo_base64)
+        except Exception as e:
+            return jsonify({"error": "Cadena Basee64 inválida"}), 400
+    else:
+        return jsonify({"error": "La foto debe ser pasada en una cadena en Base64"}), 400
+
 
     product = add_product(seller_id=seller_id,
             name=name,
@@ -33,5 +39,4 @@ def addproduct(seller_id):
         return jsonify({'error': 'Error interno de servidor'}), 500
 
     return jsonify({'message': 'Publicación exitosa'}), 200
-
 
