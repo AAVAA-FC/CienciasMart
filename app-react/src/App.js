@@ -6,8 +6,6 @@ import Login from "./components/LoginMenu/Login";
 import SignUp from "./components/SignUp/SignUp";
 import WelcomeMenu from "./components/WelcomeMenu/WelcomeMenu";
 import { AuthProvider } from "./hooks/useAuth";
-import SignUp from "./components/SignUp/SignUp";
-import HomeBuyer from "./components/Buyer/HomeBuyer/HomeBuyer";
 import ProductPage from "./components/Buyer/Products/ProductPage";
 import AddProduct from "./components/Seller/AddProduct/AddProduct"
 import ProtectedRoute from "./utils/ProtectedRoute/ProtectedRoute";
