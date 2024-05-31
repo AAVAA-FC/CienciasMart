@@ -8,6 +8,7 @@ import { AuthProvider } from "./hooks/useAuth";
 import SignUp from "./components/SignUp/SignUp";
 import HomeBuyer from "./components/Buyer/HomeBuyer/HomeBuyer";
 import ProductPage from "./components/Buyer/Products/ProductPage";
+import UpdateProduct from "./components/Seller/UpdateProduct/UpdateProduct"
 
 function App() {
     return(
@@ -19,6 +20,7 @@ function App() {
                     <Route path="/" element={<Landing />}/>
                     <Route path="/welcome" element={<WelcomeMenu />}/>
                     <Route path="/comprar/*" element={<HomeBuyer search={"featured"}/>} />
+                    <Route path="/update/*" element={<UpdateProduct product_id={23}/>} />
                 </Route>
             </Routes>
         </AuthProvider>
