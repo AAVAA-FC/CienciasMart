@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import { useParams } from "react-router";
 import { useNavigate } from 'react-router-dom';
 import frog from "../../../assets/frog.jpeg";
@@ -7,13 +8,14 @@ import HeaderSeller from "../HeaderSeller/HeaderSeller";
 import Interested from "../Interested/Interested"; // Importa el componente de interesados
 import Review from "../Review/Review";
 import "./ProductPageSeller.css";
+import ImageDecoder from '../../../utils/ImageDecoder/ImageDecoder';
 
 function ProductPageSeller() {
     const navigate = useNavigate();
     const { productId } = useParams();
-    const { data: product, loading, error } = useFetch(`http://127.0.0.1:5000/api/products/${productId}`);
+    const { data: product, loading, error } = useFetch(`http://127.0.0.1:5000/api/products/product/${productId}`);
     console.log(product);
-    const {data: interestedUsers, loadingInterested, errorInterested} = useFetch(`http://localhost:5000/api/requests/buyers_by_product_request?product_id=${productId}`);
+    const { data: interestedUsers, loadingInterested, errorInterested } = useFetch(`http://localhost:5000/api/requests/buyers_by_product_request?product_id=${productId}`);
     const handleHomeSeller = () => {
         navigate('/homeseller');
     };
@@ -21,7 +23,7 @@ function ProductPageSeller() {
     const handleUpdateProductClick = () => {
         navigate(`/actualizar-producto/${productId}`);
     };
-
+    const [sellerData, setSellerData] = useState(null);
     const reviews = [
         { user: "Usuario1", rating: 4, text: "Muy buen producto, recomendado." },
         { user: "Usuario2", rating: 5, text: "Excelente calidad y diseño." },
@@ -29,15 +31,15 @@ function ProductPageSeller() {
         { user: "Usuario4", rating: 4, text: "Me gustó mucho el diseño, aunque esperaba que fuera un poco más grande." },
         { user: "Usuario5", rating: 5, text: "¡Me encanta! La calidad es excelente y el diseño es muy bonito. Totalmente recomendado." },
     ];
-/*
-    const interestedUsers = [
-        { user: "Interesado1" },
-        { user: "Interesado2" },
-        { user: "Interesado3" },
-        { user: "Interesado4" },
-        { user: "Interesado5" },
-    ];
-*/
+    /*
+        const interestedUsers = [
+            { user: "Interesado1" },
+            { user: "Interesado2" },
+            { user: "Interesado3" },
+            { user: "Interesado4" },
+            { user: "Interesado5" },
+        ];
+    */
     return (
         <>
             <HeaderSeller />
@@ -47,29 +49,31 @@ function ProductPageSeller() {
                 </button>
                 <div className="product-container">
                     <div className="productpage-card">
-                        <div className="product-image">
-                            <img src={frog} alt="Rana" /> {/* product.image */}
-                        </div>
-                        <div className="product-info">
-                            <h2>Monedero de ranita</h2> {/* product.name */}
-                            <div className="seller-info">
-                                <p>Vendedor: Karla Ramírez Pulido</p> {/* seller.name */}
-                                <p>Calificación</p> {/* seller.calificacion */}
+                        {error && <h3 className="error-message">Error: {error.message}</h3>}
+                        {loading && <h3 className="loading-message">Cargando...</h3>}
+                        {product && ( // Add conditional check for product
+                            <div>
+                                <div className="product-image">
+                                    <ImageDecoder base64Image={product.photo} />
+                                </div>
+                                <div className="product-info">
+                                    <h2>{product.name}</h2>
+                                    {sellerData && (
+                                        <div className="seller-info">
+                                            <p>Vendedor: {sellerData.username}</p>
+                                        </div>
+                                    )}
+                                    <p className="description">{product.description}</p>
+                                    <p><strong>Categoría:</strong> {product.category}</p>
+                                    <p><strong>Costo:</strong> ${product.price}</p>
+                                    <div className="footer-product">
+                                        <p>{product.stock} disponibles</p>
+                                        <button className="reserve-button" onClick={handleUpdateProductClick}>Editar</button>
+                                        <button className="reserve-button-eliminar">Eliminar</button>
+                                    </div>
+                                </div>
                             </div>
-                            <p className="description">
-                                ¡Dale un toque de encanto y diversión a tu estilo con nuestro adorable monedero en forma de ranita!
-                                Este encantador accesorio no solo es funcional, sino que también es una declaración de moda que seguramente
-                                te hará destacar entre la multitud. Confeccionado con materiales de alta calidad y un diseño meticulosamente detallado,
-                                este monedero es perfecto para llevar tus monedas, billetes pequeños y tarjetas de una manera lúdica y original.
-                                Su tamaño compacto lo convierte en el compañero ideal para tus aventuras diarias, ya sea que estés corriendo entre
-                                reuniones o explorando la ciudad. {/* product.description */}
-                            </p>
-                            <div className="footer-product">
-                                <p>4 disponibles</p> {/* {product.stock} */}
-                                <button className="reserve-button" onClick={handleUpdateProductClick}>Editar</button>
-                                <button className="reserve-button-eliminar">Eliminar</button>
-                            </div>
-                        </div>
+                        )}
                     </div>
                     <div className="reviews-interested-container">
                         <div className="reviews-section">
@@ -97,6 +101,7 @@ function ProductPageSeller() {
             </div>
         </>
     );
+
 }
 
 export default ProductPageSeller;
