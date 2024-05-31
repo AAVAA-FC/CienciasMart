@@ -38,6 +38,7 @@ function HeaderBuyer() {
     useEffect(() => {
         if (toSearch) {
             navigate('/search-results', { state: { toSearch } });
+            setToSearch('');
         }
     }, [toSearch, navigate]);
 
