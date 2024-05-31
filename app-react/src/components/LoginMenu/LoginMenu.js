@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuth';
 import './LoginMenu.css';
+import { useState } from 'react';
+import { useAuth } from '../../hooks/useAuth';
+import { Link } from 'react-router-dom';
 
 function LoginMenu() {
   const [username, setUsername] = useState('');
@@ -22,14 +22,16 @@ function LoginMenu() {
         },
         body: JSON.stringify(data)
       });
-      
+
       const response_data = await response.json();
-      const userRole = response_data.tipo;
+      const userRole = response_data.type;
+      const id = response_data.id;
+
       console.log(response_data.tipo);
 
       if (response.ok) {
         console.log(response);
-        login({ username, userRole });
+        login({ username, userRole, id});
       } else {
         console.log(response_data.error);
         setMessage(response_data.error);
@@ -59,10 +61,6 @@ function LoginMenu() {
             <div className="login-signup">
               <p>¿Aún no tienes una cuenta?</p>
               <Link to="/signup"><p>Registrarse</p></Link>
-            </div>
-            <div className="home-seller">
-              <p>Prueba </p>
-              <Link to="/homeseller"><p>Prueba Home Seller</p></Link>
             </div>
         </div>
       </div>

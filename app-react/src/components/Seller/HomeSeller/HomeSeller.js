@@ -1,14 +1,16 @@
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import HeaderSeller from "../HeaderSeller/HeaderSeller";
 import './HomeSeller.css';
+import { useAuth } from "../../../hooks/useAuth";
 
 function HomeSeller() {
     const navigate = useNavigate();
+    const {user} = useAuth();
 
     const handleAddProductClick = () => {
-        navigate('/agregar-producto');
+        navigate(`/agregar-producto/${user.id}`);
+        console.log(user.id);
     };
 
     const handleProductPageClick = () => {

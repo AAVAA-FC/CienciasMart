@@ -1,8 +1,10 @@
 import './AddProduct.css'
 import React, { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
+import { useParams } from "react-router";
 
-function AddProduct({ seller_id }){
+function AddProduct(){
+  const { seller_id } = useParams();
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [stock, setStock] = useState('');

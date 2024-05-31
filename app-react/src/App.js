@@ -30,7 +30,7 @@ function App() {
                     <Route path="/welcome" element={<WelcomeMenu />}/>
                     <Route path="/vender/*" element={<HomeSeller/>} />
                     <Route path="/comprar/*" element={<HomeBuyer search={"featured"}/>} />
-                    <Route path="/agregar-producto/*" element={<AddProductPage seller_id={1}/>} />
+                    <Route path="/agregar-producto/:seller_id" element={<AddProductPage />} />
                     <Route path="/actualizar-producto/*" element={<UpdateProductPage product_id={23}/>} />
                 </Route>
             </Routes>
