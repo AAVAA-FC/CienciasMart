@@ -44,7 +44,7 @@ function SearchResults() {
           {error && <h3 className="error-message">Error: {error.message}</h3>}
 
           {searchResult?.map((product) => (
-            <Link key={product.id} className="product-card" to={`product/${product.id}`}>
+            <Link key={product.product_id} className="product-card" to={`product/${product.product_id}`}>
               <ImageDecoder base64Image={product.photo}/>
               <h3>{product.name}</h3>
               <p>${product.price}</p>
