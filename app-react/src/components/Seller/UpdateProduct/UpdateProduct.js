@@ -1,8 +1,10 @@
 import './UpdateProduct.css'
 import React, { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
+import { useParams } from "react-router";
 
-function UpdateProduct({ product_id }){
+function UpdateProduct(){
+  const { productId } = useParams();
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [stock, setStock] = useState('');
@@ -17,7 +19,7 @@ function UpdateProduct({ product_id }){
   const submitHandler = async(event) => {
       event.preventDefault();
 
-      const data = {product_id:product_id};
+      const data = {product_id:productId};
 
       if (name) {
         data.name = name;
@@ -53,6 +55,7 @@ function UpdateProduct({ product_id }){
 	  if (response.ok){
 	      console.log(response);
 	      setMessage("Registro completado"); //Envia a pagina buena
+		  navigate(`/product-page/${productId}`);
 	  } else {
 	      setMessage(response_data.error);
 	  }

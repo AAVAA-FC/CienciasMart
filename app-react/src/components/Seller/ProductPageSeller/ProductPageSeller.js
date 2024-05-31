@@ -18,7 +18,7 @@ function ProductPageSeller() {
     };
 
     const handleUpdateProductClick = () => {
-        navigate('/actualizar-producto');
+        navigate(`/actualizar-producto/${productId}`);
     };
 
     const reviews = [
