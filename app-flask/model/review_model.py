@@ -23,3 +23,6 @@ def add_review(product_id: int, buyer_id: int, comment: str, score: float):
 def get_reviews_by_idproduct(product_id:int):
     reviews = Review.query.filter(Review.product_id == product_id).all()
     return reviews
+    
+def get_review_by_ids(product_id, buyer_id):
+    return Review.query.filter(Review.product_id==product_id, Review.buyer_id==buyer_id).first()
