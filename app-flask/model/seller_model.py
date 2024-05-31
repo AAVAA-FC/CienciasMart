@@ -10,7 +10,7 @@ def get_seller_by_username(username: str):
 def get_seller_by_cellphone(cellphone: str):
     return Seller.query.filter(Seller.cellphone == cellphone).first()
 
-def get_seller_by_id(seller_id):
+def get_seller_by_id(seller_id: int):
     return Seller.query.filter(Seller.seller_id == seller_id).first()
 
 def add_seller(email:str, username:str, cellphone:str, password:str):
@@ -19,9 +19,6 @@ def add_seller(email:str, username:str, cellphone:str, password:str):
 
         db.session.add(seller)
         db.session.commit()
-        return seller
+        return seller 
     except (Exception) as e:
         return None
-
-def get_seller_by_id(seller_id: str):
-    return Seller.query.filter(Seller.seller_id == seller_id).first()
