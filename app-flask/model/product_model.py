@@ -20,7 +20,9 @@ def add_product(seller_id: int, name: str, description: str, stock: int, cellpho
         db.session.commit()
         return product
     except (Exception) as e:
-            return None
+        print(f"Error al agregar el producto: {e}")
+        db.session.rollback()
+        return None
 
 def delete_product(seller_id, product_id):
     try:
