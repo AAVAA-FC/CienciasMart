@@ -6,7 +6,7 @@ function SignUpMenu() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [role, setRole] = useState('');
+  const [role, setRole] = useState('Comprador');
   const [message, setMessage] = useState('');
 
   const submitHandler = async (event) => {
