@@ -3,10 +3,10 @@ from db.alchemyClasses.Seller import Seller
 from db.alchemyClasses.Product import Product
 from model.seller_model import *
 from model.product_model import *
-from . import sellers_bp
+from . import products_bp
 import base64
 
-@sellers_bp.route('/addproduct/<int:seller_id>', methods=['POST', 'GET'])
+@products_bp.route('/addproduct/<int:seller_id>', methods=['POST', 'GET'])
 def addproduct(seller_id):
     data = request.get_json()
     name = data.get('name')
