@@ -28,7 +28,7 @@ function AddProduct({ seller_id }){
       }
 
       try{
-	  const response = await fetch(`http://127.0.0.1:5000/api/sellers/addproduct/${seller_id}`, {
+	  const response = await fetch(`http://127.0.0.1:5000/api/products/addproduct/${seller_id}`, {
               method: 'POST',
 	      headers:{
 		  'Content-Type': 'application/json'
