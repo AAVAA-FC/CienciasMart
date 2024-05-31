@@ -1,5 +1,4 @@
-from db.alchemyClasses.Product import Product
-from db.alchemyClasses.Product import db
+from db.alchemyClasses.Product import Product, db
 
 def get_products_by_id(seller_id):
     return Product.query.filter(Product.seller_id == seller_id).all()
@@ -36,3 +35,6 @@ def delete_product(seller_id, product_id):
     except (Exception) as e:
         print(f"Error al borrar el producto: {e}")
         return None
+
+def get_product_by_id(product_id: str):
+    return Product.query.filter(Product.product_id == product_id).first()

@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 import base64
+=======
+>>>>>>> origin/confirmback
 from sqlalchemy import Column, Integer, String, Float, ForeignKey, LargeBinary
 from db.alchemyClasses import db
 

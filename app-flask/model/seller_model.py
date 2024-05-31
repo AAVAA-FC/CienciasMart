@@ -19,6 +19,6 @@ def add_seller(email:str, username:str, cellphone:str, password:str):
 
         db.session.add(seller)
         db.session.commit()
-        return seller
+        return seller 
     except (Exception) as e:
         return None
