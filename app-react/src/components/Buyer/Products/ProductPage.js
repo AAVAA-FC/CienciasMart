@@ -1,10 +1,8 @@
-import React, { useEffect } from "react";
-import { useFetch } from "../../../hooks/useFetch";
+import React from "react";
 import { useParams } from "react-router";
-import HeaderBuyer from "../HeaderBuyer/HeaderBuyer";
+import frog from "../../../assets/frog.jpeg";
+import { useFetch } from "../../../hooks/useFetch";
 import "./ProductPage.css";
-import { Link } from "react-router-dom";
-import frog from "../../../assets/frog.jpeg"
 
 function ProductPage() {
     const { productId } = useParams();
@@ -35,7 +33,7 @@ function ProductPage() {
 
                     <div className="footer-product">
                         <p>4 disponibles</p> {/** {product.stock} */}
-                        <button className="reserve-button"> Apartar </button>
+                        <button className="reserve-button"> Confirmar </button>
                     </div>
                 </div>
                </div>

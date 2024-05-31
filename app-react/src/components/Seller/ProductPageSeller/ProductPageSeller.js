@@ -62,6 +62,7 @@ function ProductPageSeller() {
                             <div className="footer-product">
                                 <p>4 disponibles</p> {/* {product.stock} */}
                                 <button className="reserve-button">Editar</button>
+                                <button className="reserve-button-eliminar">Eliminar</button>
                             </div>
                         </div>
                     </div>

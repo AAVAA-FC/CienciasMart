@@ -8,9 +8,9 @@ import WelcomeMenu from "./components/WelcomeMenu/WelcomeMenu";
 import { AuthProvider } from "./hooks/useAuth";
 import ProtectedRoute from "./utils/ProtectedRoute/ProtectedRoute";
 //import ProductPage from "./components/Buyer/Products/ProductPage";
+import AddReview from "./components/Buyer/AddReview/AddReview";
 import HomeSeller from "./components/Seller/HomeSeller/HomeSeller";
 import ProductPageSeller from "./components/Seller/ProductPageSeller/ProductPageSeller";
-
 function App() {
     return(
         <AuthProvider>
@@ -19,6 +19,7 @@ function App() {
                 <Route path="/signup" element={<SignUp />}/>
                 <Route path="/homeseller" element={<HomeSeller />}/>
                 <Route path="/product-page" element={<ProductPageSeller />}/>
+                <Route path="/addreview" element={<AddReview />} />
                 <Route element={<ProtectedRoute />}>
                     <Route path="/" element={<Landing />}/>
                     <Route path="/welcome" element={<WelcomeMenu />}/>
