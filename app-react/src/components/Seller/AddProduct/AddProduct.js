@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
 
-function AddProduct({ id_seller }){
+function AddProduct({ seller_id }){
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [stock, setStock] = useState('');
@@ -18,28 +18,18 @@ function AddProduct({ id_seller }){
       event.preventDefault();
 
       const data = {
-	  id_seller: id_seller,
+	  seller_id: seller_id,
 	  name: name,
 	  description: description,
-	  stock: stock,
+	  stock: parseInt(stock),
 	  cellphone: cellphone,
 	  photo: photoBase64,
 	  category: category,
-	  price: price
+	  price: parseFloat(price)
       }
-     /* 
-      const formData = new FormData();
-      formData.append('id_seller',id_seller);
-      formData.append('name',name);
-      formData.append('description',description);
-      formData.append('stock',stock);
-      formData.append('cellphone',cellphone);
-      formData.append('photo',photoBase64);
-      formData.append('category',category);
-      formData.append('price',price);
-*/
-      try{  
-	  const response = await fetch(`http://127.0.0.1:5000/api/sellers/addproduct/${id_seller}`, {
+
+      try{
+	  const response = await fetch(`http://127.0.0.1:5000/api/sellers/addproduct/${seller_id}`, {
               method: 'POST',
 	      headers:{
 		  'Content-Type': 'application/json'
@@ -66,6 +56,9 @@ function AddProduct({ id_seller }){
 	const reader = new FileReader();
 	reader.onloadend = () => {
 	    setPhotoBase64(reader.result);
+	};
+	reader.onerror = () =>{
+		console.error("Error al cargar la imagen");
 	};
 	if (file) {
 	    reader.readAsDataURL(file);
@@ -99,6 +92,10 @@ function AddProduct({ id_seller }){
 		<div>
 		    <label htmlFor="photo">Foto:</label>
 		    <input type="file" id="photo" name="photo" accept="image/*" onChange={handleFileChange} required />
+		</div>
+		<div>
+		    <label htmlFor="cellphone">Teléfono:</label>
+		    <input type="tel" id="cellphone" name="cellphone" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" placeholder="###-###-####" onChange={(event) => setCellphone(event.target.value)} required />
 		</div>
 		<button type="submit">Publicar</button>
 	    </form>

@@ -20,7 +20,7 @@ function App() {
                     <Route path="/" element={<Landing />}/>
                     <Route path="/welcome" element={<WelcomeMenu />}/>
                     <Route path="/comprar/*" element={<HomeBuyer search={"featured"}/>} />
-                    <Route path="/seller/*" element={<AddProduct id_seller={"1"}/>} />
+                    <Route path="/seller/*" element={<AddProduct seller_id={1}/>} />
                 </Route>
             </Routes>
         </AuthProvider>
