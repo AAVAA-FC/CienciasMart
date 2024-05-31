@@ -19,3 +19,7 @@ def add_review(product_id: int, buyer_id: int, comment: str, score: float):
         print(f"Error al agregar la review: {e}")
         db.session.rollback()
         return None
+
+def get_reviews_by_idproduct(product_id:int):
+    reviews = Review.query.filter(Review.product_id == product_id).all()
+    return reviews
