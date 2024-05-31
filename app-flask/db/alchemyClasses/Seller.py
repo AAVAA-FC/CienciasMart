@@ -15,7 +15,7 @@ class Seller(db.Model):
     password = Column(String(60))
     cellphone = Column(String(10), unique=True)
 
-    products = relationship("Product", back_populates="seller")
+    products = db.relationship('Product', back_populates='seller')
 
     def __init__(self, username, email, password, cellphone):
         self.username = username

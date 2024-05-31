@@ -2,4 +2,5 @@ from flask import Blueprint
 
 products_bp = Blueprint('products', __name__)
 
-from . import products
+from . import featured, search, products
+
