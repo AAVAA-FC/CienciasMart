@@ -4,6 +4,29 @@
     justify-content: center;
 }
 
+.product-quantity-input {
+    width: 40px;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+}
+
+.reserve-button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    font-weight: bold;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 0;
+    cursor: pointer;
+    border-radius: 20px;
+    transition: background-color 0.3s;
+}
+
 .product .error-message,
 .product .loading-message {
     font-size: 25px;
@@ -69,15 +92,14 @@
 
 .footer-product {
     display: flex;
-    justify-content: space-between;
+    align-items: center;
     margin-top: 50px;
+    justify-content: space-between;
 }
 
-.footer-product p {
-    font-size: 16px;
-    color: #4CAF50;
-    font-weight: bolder;
-    text-align: center;
+.footer-product .quantity-input-wrapper {
+    margin-left: auto;
+    margin-right: 10px;
 }
 
 .reserve-button {
@@ -88,16 +110,14 @@
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
     font-size: 16px;
-    margin: 4px 2px;
     cursor: pointer;
     border-radius: 20px;
     transition: background-color 0.3s;
 }
 
 .reserve-button:hover {
-    background-color: #45a049; 
+    background-color: #45a049;
 }
 
 .footer-product .reserved {
@@ -107,14 +127,12 @@
 }
 
 .footer-product .reserved-message {
-    display: inline-block;
     background-color: #3d8b3f;
     color: white;
     font-weight: bold;
     padding: 15px 32px;
     text-align: center;
     font-size: 16px;
-    margin: 4px 2px;
     border-radius: 20px;
     border: none;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);

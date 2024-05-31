@@ -15,16 +15,18 @@ import ImageDecoder from '../../../utils/ImageDecoder/ImageDecoder';
 function ProductPage() {
     const navigate = useNavigate();
     const { productId } = useParams();
-    const { data: product, loading, error} = useFetch(`http://127.0.0.1:5000/api/products/product/${productId}`);
+    const { data: product, loading, error } = useFetch(`http://127.0.0.1:5000/api/products/product/${productId}`);
     const { user } = useAuth();
     const [reserved, setReserved] = useState(false);
     const [completed, setCompleted] = useState(false);
     const [quantity, setQuantity] = useState(1);
+    const [stock, setStock] = useState(0);
     const reservationUrl = user ? `http://127.0.0.1:5000/api/requests/get_request_status?buyer_id=${user.id}&product_id=${productId}` : null;
     const { data: reservationData, loading: reservationLoading, error: reservationError } = useFetch(reservationUrl);
     const [sellerData, setSellerData] = useState(null);
 
     useEffect(() => {
+        console.log(reservationData)
         if (reservationData) {
             reservationData.estado_request == "En Progreso" ? setReserved(true) : setReserved(false);
             reservationData.estado_request == "Completada" ? setCompleted(true) : setCompleted(false);
@@ -32,8 +34,9 @@ function ProductPage() {
     }, [reservationData]);
 
     useEffect(() => {
-        if(product){
+        if (product) {
             fetchSellerData();
+            setStock(product.stock);
         }
     }, [product]);
 
@@ -56,7 +59,7 @@ function ProductPage() {
         e.preventDefault();
 
 
-        if(!user) {
+        if (!user) {
             navigate('/login');
             return;
         }
@@ -80,9 +83,12 @@ function ProductPage() {
 
             const response_data = await response.json();
 
-            if(response.ok){
+            if (response.ok) {
                 setReserved(true);
-            } else{
+
+                const updatedStock = product.stock - quantity;
+                setStock(updatedStock);
+            } else {
                 console.log(response_data);
                 throw new Error("Fallo al reservar");
             }
@@ -113,9 +119,9 @@ function ProductPage() {
                                 <p className="description">{product.description}</p>
                                 <p><strong>Categoría:</strong> {product.category}</p>
                                 <p><strong>Costo:</strong> ${product.price}</p>
-                                
+
                                 <div className="footer-product">
-                                    <p>{product.stock} disponibles</p>
+                                    <p>{stock} disponibles</p>
                                     {reserved ? (
                                         <div className="reserved">
                                             <p className="reserved-message">Apartado</p>
@@ -123,15 +129,28 @@ function ProductPage() {
                                         </div>
                                     ) : (
                                         <>
-                                            <input
-                                                type="number"
-                                                value={quantity}
-                                                min="1"
-                                                max={product.stock}
-                                                onChange={(e) => setQuantity(Number(e.target.value))}
-                                                className="quantity-input"
-                                            />
-                                            <button className="reserve-button" onClick={reserveHandler}>Apartar</button>
+                                            {completed ? (
+                                                <p className="completed-message">Compra completada</p>
+                                                ) : (
+                                                    <>
+                                                        <div className="quantity-input-wrapper">
+                                                            <input
+                                                                type="number"
+                                                                value={quantity}
+                                                                min="1"
+                                                                max={product.stock}
+                                                                    onChange={(e) => {
+                                                                        const value = Number(e.target.value);
+                                                                        if (value >= 1 && value <= product.stock) {
+                                                                            setQuantity(value);
+                                                                        }
+                                                                    }}
+                                                                className="product-quantity-input"
+                                                            />
+                                                        </div>
+                                                        <button className="reserve-button" onClick={reserveHandler}>Apartar</button>
+                                                    </>
+                                            )}
                                         </>
                                     )}
                                 </div>
@@ -140,7 +159,7 @@ function ProductPage() {
                     )}
                 </div>
                 {!error && completed && <WriteReview userId={user.id} productId={productId} />}
-                {!error && <Review productId={productId} />} 
+                {!error && <Review productId={productId} />}
             </div>
         </div>
     );
