@@ -12,6 +12,7 @@ function ProductPageSeller() {
     const navigate = useNavigate();
     const { productId } = useParams();
     const { data: product, loading, error } = useFetch(`http://127.0.0.1:5000/api/products/${productId}`);
+    console.log(product);
     const {data: interestedUsers, loadingInterested, errorInterested} = useFetch(`http://localhost:5000/api/requests/buyers_by_product_request?product_id=${productId}`);
     const handleHomeSeller = () => {
         navigate('/homeseller');

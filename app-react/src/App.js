@@ -23,7 +23,7 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<SignUp />}/>
                 <Route path="/homeseller" element={<HomeSeller />}/>
-                <Route path="/product-page" element={<ProductPageSeller />}/>
+                <Route path="/product-page/:productId" element={<ProductPageSeller />}/>
                 <Route path="/addreview" element={<AddReview />} />
                 <Route element={<ProtectedRoute />}>
                     <Route path="/" element={<Landing />}/>
@@ -31,7 +31,7 @@ function App() {
                     <Route path="/vender/*" element={<HomeSeller/>} />
                     <Route path="/comprar/*" element={<HomeBuyer search={"featured"}/>} />
                     <Route path="/agregar-producto/:seller_id" element={<AddProductPage />} />
-                    <Route path="/actualizar-producto/*" element={<UpdateProductPage product_id={23}/>} />
+                    <Route path="/actualizar-producto/:productId" element={<UpdateProductPage product_id={23}/>} />
                 </Route>
             </Routes>
         </AuthProvider>
