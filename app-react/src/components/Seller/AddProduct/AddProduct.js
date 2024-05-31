@@ -51,19 +51,26 @@ function AddProduct({ seller_id }){
       }
   };
 
-    const handleFileChange = (event) => {
-	const file = event.target.files[0];
-	const reader = new FileReader();
-	reader.onloadend = () => {
-	    setPhotoBase64(reader.result);
+   const handleFileChange = (event) => {
+		const file = event.target.files[0];
+		const reader = new FileReader();
+		reader.onloadend = () => {
+			const base64String = reader.result;
+			const base64ContentIndex = base64String.indexOf(';base64,') + ';base64,'.length;
+			if (base64ContentIndex !== -1) {
+				const base64Content = base64String.substring(base64ContentIndex);
+				setPhotoBase64(base64Content);
+			} else {
+				console.error("Error al obtener la imagen en formato base64");
+			}
+		};
+		reader.onerror = () => {
+			console.error("Error al cargar la imagen");
+		};
+		if (file) {
+			reader.readAsDataURL(file);
+		}
 	};
-	reader.onerror = () =>{
-		console.error("Error al cargar la imagen");
-	};
-	if (file) {
-	    reader.readAsDataURL(file);
-	}
-    };  
 
     return(
      <div> 
