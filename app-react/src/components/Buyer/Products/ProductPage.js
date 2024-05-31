@@ -1,13 +1,12 @@
 import React from "react";
 import { useParams } from "react-router";
-import frog from "../../../assets/frog.jpeg";
 import { useFetch } from "../../../hooks/useFetch";
 import "./ProductPage.css";
 import { Link } from "react-router-dom";
 import frog from "../../../assets/frog.jpeg"
 import { useAuth } from "../../../hooks/useAuth";
 import { useNavigate } from 'react-router';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Review from "../Review/Review";
 import WriteReview from "../Review/WriteReview";
 import ImageDecoder from '../../../utils/ImageDecoder/ImageDecoder';

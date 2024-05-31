@@ -14,11 +14,7 @@ function Login() {
         if(user.userRole == "buyer") {
           navigate('/comprar');
         } else {
-<<<<<<< HEAD
           navigate('/vender'); // cambiar a /vender
-=======
-          navigate('/'); // cambiar a /vender
->>>>>>> main
         }
       }
     }, [navigate, user]); 
