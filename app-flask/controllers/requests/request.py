@@ -2,6 +2,8 @@ from flask import request, jsonify
 from model.buyer_model import *
 from model.product_model import *
 from model.request_model import *
+from model.seller_model import *
+from mail.mail import send_email
 from . import requests_bp
 
 @requests_bp.route('/request', methods=['POST'])
@@ -33,6 +35,14 @@ def request_product():
 
     try:
         buyer.request(product, quantity_requested)
+        seller = get_seller_by_id(product.seller_id)
+        subject = "Gracias por su compra!"
+        template = "request.html"
+        additional_data = {
+            'product': product,
+            'seller': seller
+        }
+        send_email(buyer.email, subject, template, **additional_data)
         return jsonify({'message': 'Petición exitosa'}), 200
     except ValueError as e:
         return jsonify({'error': str(e)}), 400

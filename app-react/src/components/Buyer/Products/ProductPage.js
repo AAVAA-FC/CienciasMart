@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router';
 import { useState } from "react";
 import Review from "../Review/Review";
 import WriteReview from "../Review/WriteReview";
+import ImageDecoder from '../../../utils/ImageDecoder/ImageDecoder';
 
 function ProductPage() {
     const navigate = useNavigate();
@@ -18,11 +19,10 @@ function ProductPage() {
     const { user } = useAuth();
     const [reserved, setReserved] = useState(false);
     const [completed, setCompleted] = useState(false);
+    const [quantity, setQuantity] = useState(1);
     const reservationUrl = user ? `http://127.0.0.1:5000/api/requests/get_request_status?buyer_id=${user.id}&product_id=${productId}` : null;
     const { data: reservationData, loading: reservationLoading, error: reservationError } = useFetch(reservationUrl);
     const [sellerData, setSellerData] = useState(null);
-
-
 
     useEffect(() => {
         if (reservationData) {
@@ -38,7 +38,7 @@ function ProductPage() {
     }, [product]);
 
     const fetchSellerData = async () => {
-        
+
         try {
             const response = await fetch(`http://127.0.0.1:5000/api/sellers/seller/${product.seller_id}`);
             if (!response.ok) {
@@ -54,18 +54,20 @@ function ProductPage() {
 
     const reserveHandler = async (e) => {
         e.preventDefault();
-        
+
 
         if(!user) {
             navigate('/login');
             return;
         }
-        
-        
+
+
         try {
+
             const data = {
                 buyerId: user.id,
-                productId: productId
+                productId: productId,
+                quantityRequested: quantity
             }
 
             const response = await fetch('http://127.0.0.1:5000/api/requests/request', {
@@ -75,7 +77,7 @@ function ProductPage() {
                 },
                 body: JSON.stringify(data),
             });
-            
+
             const response_data = await response.json();
 
             if(response.ok){
@@ -99,34 +101,45 @@ function ProductPage() {
                     {product && (
                         <>
                             <div className="product-image">
-                                <img src={frog} alt="Rana" /> {/* product.image */}
+                                <ImageDecoder base64Image={product.photo} />
                             </div>
                             <div className="product-info">
-                                <h2>{product.name}</h2> 
-                                {sellerData && <div className="seller-info">
-                                    <p>Vendedor: {sellerData.username}</p> 
-                                    <p>Calificación: 5/5</p> {/* seller.calificacion */}
-                                </div>}
-                                <p className="description">
-                                    { product.description }
-                                </p>
-
+                                <h2>{product.name}</h2>
+                                {sellerData && (
+                                    <div className="seller-info">
+                                        <p>Vendedor: {sellerData.username}</p>
+                                    </div>
+                                )}
+                                <p className="description">{product.description}</p>
+                                <p><strong>Categoría:</strong> {product.category}</p>
+                                <p><strong>Costo:</strong> ${product.price}</p>
+                                
                                 <div className="footer-product">
-                                    <p>{ product.stock } disponibles</p> 
+                                    <p>{product.stock} disponibles</p>
                                     {reserved ? (
                                         <div className="reserved">
                                             <p className="reserved-message">Apartado</p>
                                             <p className="additional-message">Te mandamos un correo con la información</p>
                                         </div>
                                     ) : (
-                                        <button className="reserve-button" onClick={reserveHandler}>Apartar</button>
+                                        <>
+                                            <input
+                                                type="number"
+                                                value={quantity}
+                                                min="1"
+                                                max={product.stock}
+                                                onChange={(e) => setQuantity(Number(e.target.value))}
+                                                className="quantity-input"
+                                            />
+                                            <button className="reserve-button" onClick={reserveHandler}>Apartar</button>
+                                        </>
                                     )}
                                 </div>
                             </div>
                         </>
                     )}
                 </div>
-                {!error && completed && <WriteReview userId={user.id} productId={productId}/>}
+                {!error && completed && <WriteReview userId={user.id} productId={productId} />}
                 {!error && <Review productId={productId} />} 
             </div>
         </div>
