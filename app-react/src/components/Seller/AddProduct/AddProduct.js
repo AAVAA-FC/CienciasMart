@@ -5,7 +5,6 @@ function AddProduct({ seller_id }){
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [stock, setStock] = useState('');
-  const [cellphone, setCellphone] = useState('');
   const [photo, setPhoto] = useState(null);
   const [photoBase64, setPhotoBase64] = useState('');
   const [category, setCategory] = useState('');
@@ -22,7 +21,6 @@ function AddProduct({ seller_id }){
 	  name: name,
 	  description: description,
 	  stock: parseInt(stock),
-	  cellphone: cellphone,
 	  photo: photoBase64,
 	  category: category,
 	  price: parseFloat(price)
@@ -99,10 +97,6 @@ function AddProduct({ seller_id }){
 		<div>
 		    <label htmlFor="photo">Foto:</label>
 		    <input type="file" id="photo" name="photo" accept="image/*" onChange={handleFileChange} required />
-		</div>
-		<div>
-		    <label htmlFor="cellphone">Teléfono:</label>
-		    <input type="tel" id="cellphone" name="cellphone" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" placeholder="###-###-####" onChange={(event) => setCellphone(event.target.value)} required />
 		</div>
 		<button type="submit">Publicar</button>
 	    </form>
