@@ -1,13 +1,12 @@
 from sqlalchemy import Column, Integer, String
-from sqlalchemy.orm import relationship
+
 from db.alchemyClasses import db
 from sqlalchemy.orm import relationship
 from bcrypt import hashpw, checkpw, gensalt
-from db.alchemyClasses import Product
 
 
 class Seller(db.Model):
- 
+
     __tablename__ = 'seller'
 
     seller_id = Column(Integer, primary_key=True)
@@ -16,7 +15,7 @@ class Seller(db.Model):
     password = Column(String(60))
     cellphone = Column(String(10), unique=True)
 
-    products = relationship("Product", back_populates="seller")
+    products = db.relationship('Product', back_populates='seller')
 
     def __init__(self, username, email, password, cellphone):
         self.username = username
