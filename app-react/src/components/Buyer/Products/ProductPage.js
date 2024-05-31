@@ -26,7 +26,6 @@ function ProductPage() {
     const [sellerData, setSellerData] = useState(null);
 
     useEffect(() => {
-        console.log(reservationData)
         if (reservationData) {
             reservationData.estado_request == "En Progreso" ? setReserved(true) : setReserved(false);
             reservationData.estado_request == "Completada" ? setCompleted(true) : setCompleted(false);
