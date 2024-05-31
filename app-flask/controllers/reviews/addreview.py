@@ -4,13 +4,13 @@ from model.product_model import *
 from model.review_model import *
 from . import reviews_bp
 
-@reviews_bp.route('/addreview', methods=['POST'])
+@reviews_bp.route('/add_review', methods=['POST'])
 def addreview():
     data = request.get_json()
-    product_id = data.get('product_id')
-    buyer_id = data.get('buyer_id')
+    product_id = data.get('productId')
+    buyer_id = data.get('buyerId')
     comment = data.get('comment')
-    score = data.get('score')
+    score = data.get('rating')
 
     if buyer_id is None:
         return jsonify({'error': 'Faltan datos en la solicitud. Se requiere el ID del comprador,.'}), 400
@@ -41,3 +41,17 @@ def addreview():
         return jsonify({'error': 'No se pudo crear la review'}), 500
 
     return jsonify({'message': 'Publicación exitosa'}), 200
+
+@reviews_bp.route('/check_review', methods=['GET'])
+def check_review():
+    product_id = request.args.get('productId')
+    buyer_id = request.args.get('buyerId')
+    
+    if buyer_id is None:
+        return jsonify({'error': 'Faltan datos en la solicitud. Se requiere el ID del comprador,.'}), 400
+    if product_id is None:
+        return jsonify({'error': 'Faltan datos en la solicitud. Se requiere el ID del producto,.'}), 400
+
+    review_exists = get_review_by_ids(product_id, buyer_id) != None
+    
+    return jsonify({'reviewExists': review_exists})
