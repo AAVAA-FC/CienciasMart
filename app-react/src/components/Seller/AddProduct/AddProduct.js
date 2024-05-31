@@ -1,3 +1,4 @@
+import './AddProduct.css'
 import React, { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
 
@@ -71,30 +72,31 @@ function AddProduct({ seller_id }){
 	};
 
     return(
-     <div> 
-	<div>
+     <div className="add-menu"> 
+	 <div className="add-card">
+	     <h2>Publicar Producto</h2>
 	    <form onSubmit={submitHandler}>
-		<div>
+		<div className="form-group">
 		    <label htmlFor="name">Nombre del producto:</label>
 		    <input type="text" id="name" name="name" onChange={(event) => setName(event.target.value)} required />
 		</div>
-		<div>
+		<div className="form-group">
 		    <label htmlFor="price">Precio:</label>
 		    <input type="number" id="price" name="price" onChange={(event) => setPrice(event.target.value)} step="0.01" min="0" required />
 		</div>
-		<div>
+		<div className="form-group">
 		    <label htmlFor="stock">Stock:</label>
 		    <input type="number" id="stock" name="stock" onChange={(event) => setStock(event.target.value)}  min="1" required />
 		</div>
-		<div>
+		<div className="form-group">
 		    <label htmlFor="category">Categoría:</label>
 		    <input type="text" id="category" name="category" onChange={(event) => setCategory(event.target.value)} required />
 		</div>
-		<div>
+		<div className="form-group">
 		    <label htmlFor="description">Características:</label>
 		    <textarea id="description" name="description" onChange={(event) => setDescription(event.target.value)} rows="4" required></textarea>
 		</div>
-		<div>
+		<div className="form-group">
 		    <label htmlFor="photo">Foto:</label>
 		    <input type="file" id="photo" name="photo" accept="image/*" onChange={handleFileChange} required />
 		</div>
