@@ -24,22 +24,7 @@ function ProductPageSeller() {
         navigate(`/actualizar-producto/${productId}`);
     };
     const [sellerData, setSellerData] = useState(null);
-    const reviews = [
-        { user: "Usuario1", rating: 4, text: "Muy buen producto, recomendado." },
-        { user: "Usuario2", rating: 5, text: "Excelente calidad y diseño." },
-        { user: "Usuario3", rating: 3, text: "Cumple su función, pero el envío fue un poco lento." },
-        { user: "Usuario4", rating: 4, text: "Me gustó mucho el diseño, aunque esperaba que fuera un poco más grande." },
-        { user: "Usuario5", rating: 5, text: "¡Me encanta! La calidad es excelente y el diseño es muy bonito. Totalmente recomendado." },
-    ];
-    /*
-        const interestedUsers = [
-            { user: "Interesado1" },
-            { user: "Interesado2" },
-            { user: "Interesado3" },
-            { user: "Interesado4" },
-            { user: "Interesado5" },
-        ];
-    */
+    const { data: reviews, loadingReviews, errorReviews } = useFetch(`http://127.0.0.1:5000/api/reviews/listreviews/${productId}`);
     return (
         <>
             <HeaderSeller />
@@ -78,12 +63,11 @@ function ProductPageSeller() {
                     <div className="reviews-interested-container">
                         <div className="reviews-section">
                             <h3>Reseñas</h3>
-                            {reviews.map((review, index) => (
+                            {reviews && reviews.reviews_list.map((review, index) => (
                                 <Review
-                                    key={index}
-                                    user={review.user}
-                                    rating={review.rating}
-                                    text={review.text}
+                                    key={review.buyer_id}
+                                    rating={review.score}
+                                    text={review.comment}p
                                 />
                             ))}
                         </div>
