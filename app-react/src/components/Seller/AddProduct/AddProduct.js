@@ -16,7 +16,18 @@ function AddProduct({ id_seller }){
 
   const submitHandler = async(event) => {
       event.preventDefault();
-      
+
+      const data = {
+	  id_seller: id_seller,
+	  name: name,
+	  description: description,
+	  stock: stock,
+	  cellphone: cellphone,
+	  photo: photoBase64,
+	  category: category,
+	  price: price
+      }
+     /* 
       const formData = new FormData();
       formData.append('id_seller',id_seller);
       formData.append('name',name);
@@ -26,14 +37,14 @@ function AddProduct({ id_seller }){
       formData.append('photo',photoBase64);
       formData.append('category',category);
       formData.append('price',price);
-
+*/
       try{  
 	  const response = await fetch(`http://127.0.0.1:5000/api/sellers/addproduct/${id_seller}`, {
               method: 'POST',
 	      headers:{
 		  'Content-Type': 'application/json'
 	      },
-              body: JSON.stringify(formData)
+              body: JSON.stringify(data)
           });
 
 	  const response_data = await response.json();
