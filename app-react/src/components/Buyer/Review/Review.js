@@ -2,8 +2,9 @@ import { useFetch } from '../../../hooks/useFetch';
 import './Review.css'
 
 function Review({ productId }) {
-    const { data: reviews, loading, error} = useFetch(`http://127.0.0.1:5000/api/products/reviews/${productId}`);
-
+    const { data, loading, error } = useFetch(`http://127.0.0.1:5000/api/reviews/listreviews/${productId}`);
+    const reviews = data?.reviews_list || [];
+    console.log(reviews)
     return(
         <div className="review">
             <div className="review-section">
@@ -16,26 +17,14 @@ function Review({ productId }) {
 
                     {reviews?.map((review) => (
                         <div key={review.id} className="review-card">
-                            <h3>Julieta Ordaz</h3> {/** review.name */}
-                            <p>Me encantó el producto, es demasiado bello!</p> {/** review.comment */}
-                            <p>Calificación: 5/5</p> {/** review.rating */}
+                            <h3>{ review.name }</h3> 
+                            <p>{ review.comment }</p> 
+                            <p>Calificación: { review.score }/5</p> 
+                            <p>{new Date(review.review_date).toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
+
                         </div>  
                     ))}
-
-                    <div className="review-card">
-                        <h3>Julieta Ordaz</h3>
-                        <p>Me encantó el producto, es demasiado bello!</p>
-                        <p>Calificación: 5/5</p>
-                    </div>
-
-                    <div className="review-card">
-                        <h3>Julieta Ordaz</h3>
-                        <p>Me encantó el producto, es demasiado bello!</p>
-                        <p>Calificación: 5/5</p>
-                    </div>
-                    
                 </div>
-               
             </div>
         </div>
     );
