@@ -5,6 +5,7 @@ from controllers.auth import auth_bp
 from controllers.requests import requests_bp
 from controllers.products import products_bp
 from controllers.sellers import sellers_bp
+from controllers.reviews import reviews_bp
 from mail.mail import mail
 import os
 
@@ -32,5 +33,6 @@ app.register_blueprint(auth_bp, url_prefix='/api/auth')
 app.register_blueprint(requests_bp, url_prefix='/api/requests/')
 app.register_blueprint(products_bp, url_prefix='/api/products/')
 app.register_blueprint(sellers_bp, url_prefix='/api/sellers/')
+app.register_blueprint(reviews_bp, url_prefix='/api/reviews/')
 if __name__ == '__main__':
     app.run()
