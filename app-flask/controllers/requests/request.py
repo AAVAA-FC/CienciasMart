@@ -18,7 +18,9 @@ def get_buyers_by_product_request():
 
     buyers = get_buyers_by_ids(buyer_ids)
 
-    buyers_list = [{'id': buyer.buyer_id, 'username': buyer.username} for buyer in buyers]
+    buyers_list = [{'id': buyer.buyer_id,
+                    'username': buyer.username,
+                    'email':buyer.email} for buyer in buyers]
 
     return jsonify(buyers_list), 200
 
@@ -26,7 +28,7 @@ def get_buyers_by_product_request():
 def request_product():
     data = request.get_json()
     buyer_id = data.get('buyerId')
-    product_id = data.get('productId')
+    product_id = data.get('produtIcd')
 
     if not buyer_id or not product_id:
         return jsonify({'error': 'Falta el ID del comprador o del producto en los datos enviados.'}), 400
