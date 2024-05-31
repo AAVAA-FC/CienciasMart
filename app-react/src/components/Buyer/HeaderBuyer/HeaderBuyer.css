@@ -114,13 +114,36 @@
     height: 40px;
 }
 
-.link-style {
+.categories-button {
+    background-color: #F3C430;
     text-decoration: none;
     color: #333333;
     font-weight: bold;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    flex-grow: 1;
+}
+
+.categories-button:hover {
+    background-color: #E0B200;
+}
+
+.categories-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
 }
 
 
+.categories-button:hover {
+    background-color: #E0B200;
+}
+
+.categories-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
+}
 .user-menu {
     position: absolute;
     top: 50px; 
