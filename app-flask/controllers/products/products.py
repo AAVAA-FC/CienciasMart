@@ -1,4 +1,4 @@
-from flask import jsonify
+from flask import jsonify, request
 from model.product_model import *
 from . import products_bp
 

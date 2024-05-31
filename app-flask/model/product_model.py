@@ -58,3 +58,19 @@ def search_products(search_query):
 def get_products():
     products = Product.query.limit(20).all()
     return products
+
+def update_product_attributes(product, data):
+    if 'name' in data:
+        product.name = data['name']
+    if 'description' in data:
+        product.description = data['description']
+    if 'stock' in data:
+        product.stock = data['stock']
+    if 'photo' in data:
+        product.photo = base64.b64decode(data['photo'])
+    if 'category' in data:
+        product.category = data['category']
+    if 'price' in data:
+        product.price = data['price']
+
+    db.session.commit()
