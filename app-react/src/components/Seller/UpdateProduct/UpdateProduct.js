@@ -6,7 +6,6 @@ function UpdateProduct({ product_id }){
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [stock, setStock] = useState('');
-  const [cellphone, setCellphone] = useState('');
   const [photo, setPhoto] = useState(null);
   const [photoBase64, setPhotoBase64] = useState('');
   const [category, setCategory] = useState('');
@@ -29,9 +28,7 @@ function UpdateProduct({ product_id }){
       if (stock) {
           data.stock = parseInt(stock);
       }
-      if (cellphone) {
-          data.cellphone = cellphone;
-      }
+      
       if (photoBase64) {
           data.photo = photoBase64;
       }
@@ -114,10 +111,6 @@ function UpdateProduct({ product_id }){
 		<div className="form-group">
 		    <label htmlFor="photo">Foto:</label>
 		    <input type="file" id="photo" name="photo" accept="image/*" onChange={handleFileChange}   />
-		</div>
-		<div className="form-group">
-		    <label htmlFor="cellphone">Teléfono:</label>
-		    <input type="tel" id="cellphone" name="cellphone" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" placeholder="###-###-####" onChange={(event) => setCellphone(event.target.value)}   />
 		</div>
 		<button type="submit">Editar</button>
 	    </form>
