@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String
 
 from db.alchemyClasses import db
+from sqlalchemy.orm import relationship
 from bcrypt import hashpw, checkpw, gensalt
 
 
@@ -28,3 +29,11 @@ class Seller(db.Model):
         
     def check_password(self, password):
         return checkpw(password.encode('utf-8'), self.password.encode('utf-8'))
+
+    def to_dict(self):
+        return {
+            'seller_id': self.seller_id,
+            'username': self.username,
+            'email': self.email,
+            'cellphone': self.cellphone
+        }

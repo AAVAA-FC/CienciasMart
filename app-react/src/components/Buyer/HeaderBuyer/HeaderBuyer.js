@@ -78,7 +78,7 @@ function HeaderBuyer() {
 
             <div className="categories">
                 {categories.map((category) => (
-                    <Link key={category} to="/" className="link-style">{category}</Link>
+                    <Link key={category} to={`${category}`} className="link-style">{category}</Link>
                 ))}
             </div>
             

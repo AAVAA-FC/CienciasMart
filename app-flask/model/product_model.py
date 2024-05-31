@@ -1,10 +1,14 @@
 from db.alchemyClasses.Product import Product, db
 from sqlalchemy import text
 
+def get_product_by_id(product_id: str):
+    return Product.query.filter(Product.product_id == product_id).first()
+
 def get_products_by_id(seller_id):
     return Product.query.filter(Product.seller_id == seller_id).all()
 
-def add_product(seller_id: int, name: str, description: str, stock: int, cellphone: str, photo: bytes, category: str, price: float):
+def add_product(seller_id: int, name: str, description: str, stock: int,
+                cellphone: str, photo: bytes, category: str, price: float):
     try:
         product = Product(
             seller_id=seller_id,

@@ -18,6 +18,9 @@ class Product(db.Model):
 
     seller = db.relationship('Seller', back_populates='products')
 
+    buyers = db.relationship('Buyer',
+                             secondary='request',
+                             back_populates='products_requested')
 
     def __init__(self, seller_id, name, description, stock, cellphone, photo, category, price, product_id=None):
         self.product_id = product_id
