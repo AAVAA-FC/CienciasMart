@@ -9,11 +9,13 @@ import Interested from "../Interested/Interested"; // Importa el componente de i
 import Review from "../Review/Review";
 import "./ProductPageSeller.css";
 import ImageDecoder from '../../../utils/ImageDecoder/ImageDecoder';
+import { useAuth } from "../../../hooks/useAuth";
 
 function ProductPageSeller() {
     const navigate = useNavigate();
     const { productId } = useParams();
     const { data: product, loading, error } = useFetch(`http://127.0.0.1:5000/api/products/product/${productId}`);
+    const {user} = useAuth();
     console.log(product);
     const { data: interestedUsers, loadingInterested, errorInterested } = useFetch(`http://localhost:5000/api/requests/buyers_by_product_request?product_id=${productId}`);
     const handleHomeSeller = () => {
@@ -22,6 +24,24 @@ function ProductPageSeller() {
 
     const handleUpdateProductClick = () => {
         navigate(`/actualizar-producto/${productId}`);
+    };
+
+    const handleDelete = async () => {
+        try {
+            const response = await fetch(`http://127.0.0.1:5000/api/products/deleteproduct/${user.id}/${productId}`, {
+                method: 'DELETE'
+            });
+            console.log(`http://127.0.0.1:5000/api/products/deleteproduct/${user.id}/${productId}`);
+            if (response.ok) {
+                console.log('Producto borrado exitosamente');
+                navigate('/homeseller')
+            } else {
+                const responseData = await response.json();
+                console.error('Error:', responseData.error);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
     };
     const [sellerData, setSellerData] = useState(null);
     const { data: reviews, loadingReviews, errorReviews } = useFetch(`http://127.0.0.1:5000/api/reviews/listreviews/${productId}`);
@@ -54,7 +74,8 @@ function ProductPageSeller() {
                                     <div className="footer-product">
                                         <p>{product.stock} disponibles</p>
                                         <button className="reserve-button" onClick={handleUpdateProductClick}>Editar</button>
-                                        <button className="reserve-button-eliminar">Eliminar</button>
+                                        <button className="reserve-button-eliminar" onClick={handleDelete}>Eliminar</button>
+
                                     </div>
                                 </div>
                             </div>
