@@ -1,4 +1,5 @@
 from db.alchemyClasses.Product import Product, db
+import base64
 from sqlalchemy import text
 
 def get_product_by_id(product_id: str):
