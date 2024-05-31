@@ -12,7 +12,7 @@ function ProductPageSeller() {
     const navigate = useNavigate();
     const { productId } = useParams();
     const { data: product, loading, error } = useFetch(`http://127.0.0.1:5000/api/products/${productId}`);
-
+    const {data: interestedUsers, loadingInterested, errorInterested} = useFetch(`http://localhost:5000/api/requests/buyers_by_product_request?product_id=${productId}`);
     const handleHomeSeller = () => {
         navigate('/homeseller');
     };
@@ -24,7 +24,7 @@ function ProductPageSeller() {
         { user: "Usuario4", rating: 4, text: "Me gustó mucho el diseño, aunque esperaba que fuera un poco más grande." },
         { user: "Usuario5", rating: 5, text: "¡Me encanta! La calidad es excelente y el diseño es muy bonito. Totalmente recomendado." },
     ];
-
+/*
     const interestedUsers = [
         { user: "Interesado1" },
         { user: "Interesado2" },
@@ -32,7 +32,7 @@ function ProductPageSeller() {
         { user: "Interesado4" },
         { user: "Interesado5" },
     ];
-
+*/
     return (
         <>
             <HeaderSeller />
@@ -80,10 +80,10 @@ function ProductPageSeller() {
                         </div>
                         <div className="interested-section">
                             <h3>Interesados</h3>
-                            {interestedUsers.map((interested, index) => (
+                            {interestedUsers?.map((interested) => (
                                 <Interested
-                                    key={index}
-                                    user={interested.user}
+                                    key={interested.buyer_id}
+                                    user={interested}
                                 />
                             ))}
                         </div>
