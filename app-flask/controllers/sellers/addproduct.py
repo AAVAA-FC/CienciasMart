@@ -37,8 +37,7 @@ def addproduct(seller_id):
         return jsonify({'error': 'La descripción debe ser una cadena'}), 400
     if not isinstance(stock, int) or stock < 0:
         return jsonify({'error': 'El stock debe ser un entero no negativo'}), 400
-    if not isinstance(cellphone, str) or not cellphone.isdigit() or len(cellphone) != 10:
-        return jsonify({'error': 'El número de celular debe ser una cadena de 10 dígitos'}), 400
+        
     if not isinstance(category, str) or not category.strip():
         return jsonify({'error': 'La categoría debe ser una cadena no vacía'}), 400
     if not isinstance(price, (int, float)) or price <= 0:
