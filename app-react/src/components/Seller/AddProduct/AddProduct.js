@@ -43,6 +43,8 @@ function AddProduct(){
 	  if (response.ok){
 	      console.log(response);
 	      setMessage("Registro completado"); //Envia a pagina buena
+		  navigate(`/vender`);
+
 	  } else {
 	      setMessage(response_data.error);
 	  }
