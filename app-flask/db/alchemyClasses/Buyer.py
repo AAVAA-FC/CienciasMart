@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String
-
-from db.alchemyClasses import db
+from db.alchemyClasses import Product, db
+from .Request import Request
 from bcrypt import hashpw, checkpw, gensalt
 
 
@@ -13,6 +13,11 @@ class Buyer(db.Model):
     email = Column(String(40), unique=True)
     password = Column(String(60))
     cellphone = Column(String(10), unique=True)
+
+    products_requested = db.relationship('Product',
+                                         secondary='request',
+                                         back_populates='buyers',
+                                         lazy='dynamic')
 
     def __init__(self, username, email, password, cellphone):
         self.username = username

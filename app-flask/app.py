@@ -4,6 +4,7 @@ from flask_mail import Mail
 from db.alchemyClasses import db
 from controllers.auth import auth_bp
 from controllers.sellers import sellers_bp
+from controllers.requests import requests_bp
 from mail.mail import mail
 import os
 
@@ -29,5 +30,7 @@ mail.init_app(app)
 
 app.register_blueprint(auth_bp, url_prefix='/api/auth')
 app.register_blueprint(sellers_bp, url_prefix='/api/sellers')
+app.register_blueprint(requests_bp, url_prefix='/api/requests')
+
 if __name__ == '__main__':
     app.run()
