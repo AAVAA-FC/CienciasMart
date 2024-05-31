@@ -14,7 +14,7 @@ import ProtectedRoute from "./utils/ProtectedRoute/ProtectedRoute";
 import AddReview from "./components/Buyer/AddReview/AddReview";
 import HomeSeller from "./components/Seller/HomeSeller/HomeSeller";
 import ProductPageSeller from "./components/Seller/ProductPageSeller/ProductPageSeller";
-import UpdateProduct from "./components/Seller/UpdateProduct/UpdateProduct"
+import UpdateProductPage from "./components/Seller/UpdateProduct/UpdateProductPage"
 
 function App() {
     return(
@@ -31,7 +31,7 @@ function App() {
                     <Route path="/vender/*" element={<HomeSeller/>} />
                     <Route path="/comprar/*" element={<HomeBuyer search={"featured"}/>} />
                     <Route path="/agregar-producto/*" element={<AddProductPage seller_id={1}/>} />
-                    <Route path="/update/*" element={<UpdateProduct product_id={23}/>} />
+                    <Route path="/actualizar-producto/*" element={<UpdateProductPage product_id={23}/>} />
                 </Route>
             </Routes>
         </AuthProvider>

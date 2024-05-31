@@ -17,6 +17,10 @@ function ProductPageSeller() {
         navigate('/homeseller');
     };
 
+    const handleUpdateProductClick = () => {
+        navigate('/actualizar-producto');
+    };
+
     const reviews = [
         { user: "Usuario1", rating: 4, text: "Muy buen producto, recomendado." },
         { user: "Usuario2", rating: 5, text: "Excelente calidad y diseño." },
@@ -61,7 +65,7 @@ function ProductPageSeller() {
                             </p>
                             <div className="footer-product">
                                 <p>4 disponibles</p> {/* {product.stock} */}
-                                <button className="reserve-button">Editar</button>
+                                <button className="reserve-button" onClick={handleUpdateProductClick}>Editar</button>
                                 <button className="reserve-button-eliminar">Eliminar</button>
                             </div>
                         </div>
