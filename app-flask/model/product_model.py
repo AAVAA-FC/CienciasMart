@@ -1,5 +1,4 @@
-from db.alchemyClasses.Product import Product
-from db.alchemyClasses.Product import db
+from db.alchemyClasses.Product import Product, db
 from sqlalchemy import text
 
 def get_products_by_id(seller_id):
@@ -52,7 +51,6 @@ def search_products(search_query):
     
     return product_objects
 
-
-    
-
-
+def get_products():
+    products = Product.query.limit(20).all()
+    return products
