@@ -15,6 +15,7 @@ import AddReview from "./components/Buyer/AddReview/AddReview";
 import HomeSeller from "./components/Seller/HomeSeller/HomeSeller";
 import ProductPageSeller from "./components/Seller/ProductPageSeller/ProductPageSeller";
 import UpdateProductPage from "./components/Seller/UpdateProduct/UpdateProductPage"
+import ResultsPage from "./components/Buyer/ResultsPage/ResultsPage";
 
 function App() {
     return(
@@ -32,6 +33,7 @@ function App() {
                     <Route path="/comprar/*" element={<HomeBuyer search={"featured"}/>} />
                     <Route path="/agregar-producto/:seller_id" element={<AddProductPage />} />
                     <Route path="/actualizar-producto/:productId" element={<UpdateProductPage product_id={23}/>} />
+                    <Route path="/search-results/*" element={<ResultsPage/>} />
                 </Route>
             </Routes>
         </AuthProvider>
