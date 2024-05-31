@@ -15,7 +15,7 @@ function SearchBar() {
 
   return (
     <form onSubmit={submitHandler}>
-	<input type="text" value={toSearch} onChange={(event) => setToSearch(event.target.value)} placeholder="Busar productos..." className="search-bar"/>
+	<input type="text" value={toSearch} onChange={(event) => setToSearch(event.target.value)} placeholder="Buscar productos..." className="search-bar"/>
 	<button type="submit">
 	    <img src={searchicon} alt="Search Icon"/>
 	</button>

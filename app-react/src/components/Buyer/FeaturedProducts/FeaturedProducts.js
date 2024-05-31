@@ -23,7 +23,7 @@ function FeaturedProducts({ search }) {
                     {loading && <h3 className="loading-message">Cargando...</h3>}
         
                     {featured?.map((product) => (
-                        <Link key={product.id} className="product-card" to={`product/${product.product_id}`}>
+                        <Link key={product.product_id} className="product-card" to={`product/${product.product_id}`}>
                             <ImageDecoder base64Image={product.photo}/>
                             <h3>{product.name}</h3>
                             <p>${product.price}</p>
