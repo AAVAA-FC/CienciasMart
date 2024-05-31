@@ -98,7 +98,7 @@ function UpdateProduct({ product_id }){
 		</div>
 		<div className="form-group">
 		    <label htmlFor="stock">Stock:</label>
-		    <input type="number" id="stock" name="stock" onChange={(event) => setStock(event.target.value)}  min="1"   />
+		    <input type="number" id="stock" name="stock" onChange={(event) => setStock(event.target.value)}  min="1" step="1"  />
 		</div>
 		<div className="form-group">
 		    <label htmlFor="category">Categoría:</label>
