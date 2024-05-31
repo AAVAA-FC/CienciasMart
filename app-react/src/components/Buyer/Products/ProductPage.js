@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
-import { useFetch } from "../../../hooks/useFetch";
+import React from "react";
 import { useParams } from "react-router";
-import HeaderBuyer from "../HeaderBuyer/HeaderBuyer";
+import frog from "../../../assets/frog.jpeg";
+import { useFetch } from "../../../hooks/useFetch";
 import "./ProductPage.css";
 import { Link } from "react-router-dom";
 import frog from "../../../assets/frog.jpeg"
@@ -118,6 +118,7 @@ function ProductPage() {
                                 <p className="description">{product.description}</p>
                                 <p><strong>Categoría:</strong> {product.category}</p>
                                 <p><strong>Costo:</strong> ${product.price}</p>
+
 
                                 <div className="footer-product">
                                     <p>{stock} disponibles</p>

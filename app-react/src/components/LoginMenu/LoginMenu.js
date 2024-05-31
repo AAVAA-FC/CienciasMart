@@ -22,7 +22,7 @@ function LoginMenu() {
         },
         body: JSON.stringify(data)
       });
-      
+
       const response_data = await response.json();
       const userRole = response_data.type;
       const id = response_data.id;
