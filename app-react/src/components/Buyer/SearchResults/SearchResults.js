@@ -48,9 +48,6 @@ function SearchResults() {
               <ImageDecoder base64Image={product.photo}/>
               <h3>{product.name}</h3>
               <p>${product.price}</p>
-              <div className="card-bottom">
-                <p>Calificación</p>
-              </div>
             </Link>
           ))}
         </div>
