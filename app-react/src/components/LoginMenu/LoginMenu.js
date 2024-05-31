@@ -1,7 +1,7 @@
-import './LoginMenu.css';
 import { useState } from 'react';
-import { useAuth } from '../../hooks/useAuth';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../hooks/useAuth';
+import './LoginMenu.css';
 
 function LoginMenu() {
   const [username, setUsername] = useState('');
@@ -59,6 +59,10 @@ function LoginMenu() {
             <div className="login-signup">
               <p>¿Aún no tienes una cuenta?</p>
               <Link to="/signup"><p>Registrarse</p></Link>
+            </div>
+            <div className="home-seller">
+              <p>Prueba </p>
+              <Link to="/homeseller"><p>Prueba Home Seller</p></Link>
             </div>
         </div>
       </div>

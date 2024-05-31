@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import frog from "../../../assets/frog.jpeg";
 import { useFetch } from "../../../hooks/useFetch";
-import "./FeaturedProducts.css";
+import "./SellerProducts.css";
 
-function FeaturedProducts({ search }) { 
+function SellerProducts({ search }) { 
 
     const url = "http://127.0.0.1:5000/api/products/" + search;
     const { data: featured, loading, error } = useFetch(url);
@@ -59,4 +59,4 @@ function FeaturedProducts({ search }) {
     );
 };
 
-export default FeaturedProducts;
+export default SellerProducts;

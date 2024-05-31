@@ -1,11 +1,9 @@
-import logo from '../../logo.svg';
-import Header from '../Header/Header';
-import LoginMenu from './LoginMenu';
-import WelcomeMenu from '../WelcomeMenu/WelcomeMenu';
-import { useAuth } from '../../hooks/useAuth';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import '../../App.css';
-import { useEffect } from 'react';
+import { useAuth } from '../../hooks/useAuth';
+import Header from '../Header/Header';
+import LoginMenu from './LoginMenu';
 
 function Login() {
     const navigate = useNavigate();
@@ -16,7 +14,7 @@ function Login() {
         if(user.userRole == "buyer") {
           navigate('/comprar');
         } else {
-          navigate('/comprar'); // cambiar a /vender
+          navigate('/vender'); // cambiar a /vender
         }
       }
     }, [navigate, user]); 
