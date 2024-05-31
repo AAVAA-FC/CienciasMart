@@ -84,8 +84,8 @@ function UpdateProduct({ product_id }){
 	};
 
     return(
-     <div className="signup-menu">
-	 <div className="signup-card">
+     <div className="update-menu">
+	 <div className="update-card">
 	     <h2>Editar Producto</h2>
 	    <form onSubmit={submitHandler}>
 		<div className="form-group">
