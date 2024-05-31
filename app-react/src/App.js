@@ -7,7 +7,8 @@ import SignUp from "./components/SignUp/SignUp";
 import WelcomeMenu from "./components/WelcomeMenu/WelcomeMenu";
 import { AuthProvider } from "./hooks/useAuth";
 import ProductPage from "./components/Buyer/Products/ProductPage";
-import AddProduct from "./components/Seller/AddProduct/AddProduct"
+import AddProduct from "./components/Seller/AddProduct/AddProduct";
+import AddProductPage from "./components/Seller/AddProduct/AddProductPage";
 import ProtectedRoute from "./utils/ProtectedRoute/ProtectedRoute";
 //import ProductPage from "./components/Buyer/Products/ProductPage";
 import AddReview from "./components/Buyer/AddReview/AddReview";
@@ -28,7 +29,7 @@ function App() {
                     <Route path="/welcome" element={<WelcomeMenu />}/>
                     <Route path="/vender/*" element={<HomeSeller/>} />
                     <Route path="/comprar/*" element={<HomeBuyer search={"featured"}/>} />
-                    <Route path="/seller/*" element={<AddProduct seller_id={1}/>} />
+                    <Route path="/agregar-producto/*" element={<AddProductPage seller_id={1}/>} />
                 </Route>
             </Routes>
         </AuthProvider>
