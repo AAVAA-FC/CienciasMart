@@ -34,6 +34,7 @@ CREATE TABLE product (
     photo LONGBLOB NOT NULL,
     category VARCHAR(20) NOT NULL,
     price FLOAT8 NOT NULL,
+    FULLTEXT(name, description, category),
     CONSTRAINT product_fk FOREIGN KEY (seller_id) REFERENCES seller(seller_id),
     CONSTRAINT chk_cellphone_length_product CHECK (LENGTH(cellphone) = 10)
 );

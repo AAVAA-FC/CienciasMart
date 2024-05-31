@@ -37,7 +37,7 @@ def signup():
         return jsonify({'error': 'Error interno de servidor'}), 500
     subject = "Bienvenido a Cienciasmart"
     template = "signup.html"
-    additional_data = { 
+    additional_data = {
         'username': username,
         'password': password
     }

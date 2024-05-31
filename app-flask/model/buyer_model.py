@@ -1,9 +1,6 @@
 from db.alchemyClasses.Buyer import Buyer
 from db.alchemyClasses.Buyer import db
 
-def get_buyers_by_ids(buyer_ids):
-    return Buyer.query.filter(Buyer.buyer_id.in_(buyer_ids)).all()
-
 def get_buyer_by_email(email: str):
     return Buyer.query.filter(Buyer.email == email).first()
 
@@ -26,3 +23,4 @@ def add_buyer(email:str, username:str, cellphone:str, password:str):
     except (Exception) as e:
         print(e)
         return None
+
