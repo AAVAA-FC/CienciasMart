@@ -17,6 +17,9 @@ def addproduct(seller_id):
     category = data.get('category')
     price = data.get('price')
 
+    if not isinstance(seller_id, int):
+        return jsonify({"error": "Seller_id no está en enteros "}), 400
+
     if isinstance(photo_base64, str):
         try:
             photo = base64.b64decode(photo_base64)
@@ -25,6 +28,8 @@ def addproduct(seller_id):
     else:
         return jsonify({"error": "La foto debe ser pasada en una cadena en Base64"}), 400
 
+    if not isinstance(photo, bytes):
+        return jsonify({"error": "Foto aun no está en bytlike"}), 400
 
     product = add_product(seller_id=seller_id,
             name=name,
