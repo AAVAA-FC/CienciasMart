@@ -1,23 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confirmación de compra CienciasMart</title>
+    <title>Confirmación de Compra</title>
 </head>
-<body style="font-family: Arial, sans-serif; padding: 20px;">
-
-    <p>Estimado </p>
-
-    <p>A continuación se muestran sus credenciales para hacer uso de cienciasmart:</p>
-
-    <ul>
-        <li><strong>id producto:</strong> {{ product_id }}</li>
-        <li><strong>id bueyr:</strong> {{ buyer_id }}</li>
-    </ul>
-
-    <p>Gracias,<br>
-    El Equipo de Cienciasmart</p>
-
+<body>
+    <div>
+        <h1>¡Gracias por tu compra!</h1>
+        <p>Hola,</p>
+        <p>Estamos encantados de informarte que tu compra del producto <strong>{{ name }}</strong> ha sido confirmada exitosamente.</p>
+        <p>Tu ID de comprador es <strong>{{ buyer_id }}</strong> y el ID del producto es <strong>{{ product_id }}</strong>.</p>
+        <p>Esperamos que disfrutes de tu compra y agradecemos tu confianza en nosotros.</p>
+        <p>Saludos,</p>
+        <p>El equipo de Cienciasmart</p>
+    </div>
 </body>
 </html>
